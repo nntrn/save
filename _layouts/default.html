@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta name="author" content="Annie Tran (@nntrn)" />
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <link rel="stylesheet" href="{{ '/assets/style.css' | absolute_url }}">
+    <link rel="stylesheet" href="{{ '/assets/highlight.css' | absolute_url }}">
+    <meta name="description" content="Blog from issues">
+    <link rel="shortcut icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22><path d=%22M4.75 2.37a6.501 6.501 0 0 0 6.5 11.26.75.75 0 0 1 .75 1.298A7.999 7.999 0 0 1 .989 4.148 8 8 0 0 1 16 7.75v1.5a2.75 2.75 0 0 1-5.072 1.475 3.999 3.999 0 0 1-6.65-4.19A4 4 0 0 1 12 8v1.25a1.25 1.25 0 0 0 2.5 0V7.867a6.5 6.5 0 0 0-9.75-5.496ZM10.5 8a2.5 2.5 0 1 0-5 0 2.5 2.5 0 0 0 5 0Z%22/></svg>">
+
+    {% feed_meta %}
+    {% seo %}
+  </head>
+  <body>
+    <header>
+      <h1 class="site-title"> <a title="{{site.title}}" href="{{ '/' | relative_url }}">nntrn.github.io/save</a></h1>
+      <h2 id="page-title">{{ page.title }}</h2>
+    </header>
+    <main class="container">
+      {{ content }}
+    </main>
+    <footer>
+      <a href="https://github.com/{{site.repository}}">View on Github</a>
+    </footer>
+  </body>
+</html>
