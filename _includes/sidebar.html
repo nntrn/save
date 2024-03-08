@@ -6,7 +6,7 @@
   {%- if page.number == newobj.number -%}
   <strong>{{newobj.title}}</strong>
   {%- else -%}
-  <a href="{{site.baseurl}}/{{urlpath}}">{{newobj.title}}</a>
+  <a href="/save/{{urlpath}}">{{newobj.title}}</a>
   {%- endif -%}
 </li>
 {%- endfor %}
