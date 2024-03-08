@@ -71,18 +71,13 @@ if [[ -n $1 ]]; then
   workflow_dispatch)
     build_all
     ;;
-  push*)
+  push)
     download_artifacts
     ;;
-  issue*)
+  issues)
     download_artifacts
     ;;
-  *) HAS_ERROR=1 ;;
   esac
 else
-  HAS_ERROR=1
-fi
-
-if [[ $HAS_ERROR -eq 1 ]]; then
   exit 1
 fi
