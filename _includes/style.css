@@ -8,7 +8,7 @@ footer,header,main>*{padding:0 1rem}
 footer{margin-top:1rem;padding-top:.5rem;padding-bottom:.5rem}
 h1,h2,h3,pre,ul{margin:.5rem 0}
 h1.title a{color:#222;margin:0 0;padding:0 0;text-decoration:3px underline;text-underline-offset:2px}
-h1.title a:hover{text-decoration-color:#ff00ff}
+h1.title a:hover{text-decoration-color:#f0f}
 h2.page-title{margin:0 0;border-bottom:2px solid #222;letter-spacing:-.5px}
 h3{margin:0 0}
 hr{margin:1.5rem 0;border:0;border-bottom:1px solid #aaa}
@@ -33,14 +33,16 @@ ul{padding:0 1rem}
 .page{flex:3;max-width:70vw}
 .page ul{display:flex;flex-direction:column;gap:.5rem}
 .sidebar{flex:1;max-width:30vw}
-.sidebar ul{display:flex;flex-direction:column}
+.sidebar ul{display:flex;flex-direction:column;gap:.45rem}
 .sidebar a{text-decoration:underline currentColor 1px;color:inherit}
 .sidebar a:hover{background:#5bffff}
-.sidebar>ul>li:after{content:"#" attr(data-issue);color:#a9a9a9;margin-left:.25rem;font-size:.8em;display:inline-flex}
+.sidebar>ul>li{line-height:1.1}
+.sidebar>ul>li:after{content:"#" attr(data-issue);color:#a9a9a9;margin-left:.25rem;font-size:.8em/*! display:inline-flex; */}
 [hidden]{display:none}
-.time{display:flex;gap:1rem;margin:.25rem 0;justify-content:space-between}
+.time{display:flex;gap:1rem;margin:.5rem 0;justify-content:space-between}
 .time time{text-transform:uppercase;font-size:.9rem}
-.time time:before{content:attr(data-label);box-shadow:inset 1px 1px,inset -1px -1px;padding:0 3px;line-height:1;margin-right:.2rem;font-size:.9em}
+[data-layout=home]{flex-direction:column}
+[data-layout=home] .sidebar{display:block;width:unset;max-width:unset}
 @media (max-width:600px){
 pre{padding:.5rem;white-space:pre-wrap;overflow-x:hidden}
 main>section{padding:0 .5rem}

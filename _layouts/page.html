@@ -1,8 +1,9 @@
 ---
 layout: default
+type: page
 ---
 
-<div class="flex wrap gap" style="--gap:2rem">
+<div data-layout="{{page.type}}" class="flex wrap gap" style="--gap:2rem">
   <div class="sidebar">
     {% include sidebar.html -%}
   </div>
