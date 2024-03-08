@@ -2,6 +2,7 @@
 
 set -e
 export ISSUESFILE=$1
+export GITHUB_TOKEN=$GH_TOKEN
 TMPDIR=$(mktemp -d)
 trap 'rm -rf "$TMPDIR"' EXIT
 
@@ -52,5 +53,7 @@ if [[ ! -f $ISSUESFILE ]]; then
   ISSUESFILE=$TMPDIR/issues.json
   ghcurl "https://api.github.com/repos/nntrn/save/issues?per_page=100" $ISSUESFILE
 fi
+
+env
 
 build_all $ISSUESFILE
