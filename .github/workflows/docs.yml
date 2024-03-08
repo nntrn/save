@@ -18,29 +18,20 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
+      - run: ./scripts/build2.sh
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: "2.7.1"
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
-
-      - run: ./scripts/build2.sh
-
       - name: Set up Pages
         id: pages
         uses: actions/configure-pages@v2
-
       - name: Build with Jekyll
         # Outputs to the './_site' directory by default
         run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
         env:
           JEKYLL_ENV: production
-
-      - run: |
-          zip -r site.zip _data
-          mv site.zip _site/assets
-
       - name: Upload artifact
         # Automatically uploads an artifact from the './_site' directory by default
         uses: actions/upload-pages-artifact@v1
