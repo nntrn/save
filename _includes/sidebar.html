@@ -1,0 +1,13 @@
+<ul>
+{%- for item in site.data.body %}
+{%- assign newobj = item|slice: 1| first -%}
+{%- assign urlpath = newobj.number %}
+<li data-issue="{{newobj.number}}" style="order: {{newobj.number}}">
+  {%- if page.number == newobj.number -%}
+  <strong>{{newobj.title}}</strong>
+  {%- else -%}
+  <a href="{{urlpath|relative_url}}">{{newobj.title}}</a>
+  {%- endif -%}
+</li>
+{%- endfor %}
+</ul>

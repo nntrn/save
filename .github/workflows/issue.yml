@@ -1,0 +1,54 @@
+name: Trigger issue
+
+on:
+  issue_comment:
+    types: [created, edited, deleted]
+  issues:
+    types: [opened, edited]
+
+jobs:
+  create_content:
+    runs-on: ubuntu-latest
+    if: github.repository_owner == github.triggering_actor
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup
+        run: |
+          curl -O https://nntrn.github.io/save/assets/site.zip
+          if [[ -d _site ]]; then rm -rf _site; fi
+          unzip site.zip
+
+      - name: Comments
+        if: ${{ env.ISSUE_COMMENTS > 0 }}
+        run: |
+          curl -s -o ${{env.API_COMMENTS}} \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            "${{env.ISSUE_COMMENTS_URL}}?per_page=100" 
+
+          jq 'map(select(.author_association == "OWNER"))
+          | map(.number |= tostring| del(.reactions,.user))' ${{env.API_COMMENTS}} > _site
+
+          jq -r 'include "issue"; comments_md' ${{env.API_COMMENTS}} >> ${{env.ISSUE_FILEPATH}}
+
+      - name: Comments
+        if: ${{ env.ISSUE_COMMENTS > 0 }}
+        run: |
+          curl -s -o ${{env.API_COMMENTS}} \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            "${{env.ISSUE_COMMENTS_URL}}?per_page=100" 
+
+          jq 'map(select(.author_association == "OWNER"))
+          | map(.number |= tostring| del(.reactions,.user))' ${{env.API_COMMENTS}} > _site
+
+          jq -r 'include "issue"; comments_md' ${{env.API_COMMENTS}} >> ${{env.ISSUE_FILEPATH}}
+
+      - name: Commit and push
+        continue-on-error: true
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions@noreply.github.com"
+          git config push.default current
+          git add ${{ env.DOCS_DIR }}
+          git commit -m "$GITHUB_WORKFLOW ${{env.ISSUE_FILEPATH}}"
+          git push

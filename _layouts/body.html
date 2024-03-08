@@ -1,0 +1,16 @@
+---
+layout: page
+---
+
+<h2 class="page-title">{{page.title}}</h2>
+<p class="time"><time datetime="{{page.created_at}}">{{page.created_at|date_to_string}}</time> &bull; <time datetime="{{page.updated_at}}">{{page.updated_at|date_to_string}}</time></p>
+<section class="body">
+{{ page.body|markdownify }}
+{%- if page.comments > 0 %}
+{%- assign comments = site.data.comments[page.number] | sort: "created_at" -%}
+{%- for comment in comments %}
+<hr>
+{{ comment.body|markdownify }}
+{%- endfor %}
+{%- endif %}
+</section>
