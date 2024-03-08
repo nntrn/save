@@ -65,19 +65,16 @@ build_all() {
   done
 }
 
+env
+run_command=build_all
+
 if [[ -n $1 ]]; then
-  echo $1
   case $1 in
-  workflow_dispatch)
-    build_all
-    ;;
-  push)
-    download_artifacts
-    ;;
-  issues)
-    download_artifacts
-    ;;
+  workflow_dispatch) run_command=build_all ;;
+  push*) run_command=download_artifacts ;;
+  issue*) run_command=download_artifacts ;;
   esac
-else
-  exit 1
 fi
+
+echo "Running $run_command"
+$run_command
