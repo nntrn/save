@@ -2,9 +2,12 @@ name: Test trigger issue
 
 on:
   issue_comment:
-    types: [created, edited, deleted]
+    types: [created, edited]
   issues:
     types: [opened, edited]
+
+env:
+  ARTIFACTS_URL: https://api.github.com/repos/nntrn/save/actions/artifacts
 
 jobs:
   create_content:
@@ -15,20 +18,7 @@ jobs:
       - name: Environment
         run: >
           env | sort
-      - name: Download
-        run: |
-          LAST_ARCHIVE_URL="$(
-            curl -s -H "Authorization: Bearer $GITHUB_TOKEN" "$ARTIFACTS_URL" |
-              jq -r '.artifacts|sort_by(.created_at)|map(select(.expired|not))|last|.archive_download_url? // ""'
-          )"
-
-          if [[ -n $LAST_ARCHIVE_URL ]]; then
-            curl -o ghpage.zip -L -H "Authorization: Bearer $GITHUB_TOKEN" "$LAST_ARCHIVE_URL"
-            unzip ghpage.zip
-            mkdir _site
-            tar -xf artifact.tar -C _site
-          else
-            exit 1
-          fi
+      - name: Environment
+        run: echo -e '```json\n${{ fromJSON(github) }}\n```' >>$GITHUB_STEP_SUMMARY
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

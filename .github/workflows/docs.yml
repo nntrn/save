@@ -4,6 +4,10 @@ on:
   workflow_dispatch:
   push:
     paths: ["_config.yml", "**.html", "_layouts/**", "_includes/**"]
+  issue_comment:
+    types: [deleted]
+  issues:
+    types: [deleted]
 
 permissions:
   contents: read
@@ -23,7 +27,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - run: ./scripts/build2.sh
+      - run: ./scripts/build2.sh $GITHUB_EVENT_NAME
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Set up Ruby

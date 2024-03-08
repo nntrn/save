@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 set -e
-export ISSUESFILE=$1
 export GITHUB_TOKEN=$GH_TOKEN
 TMPDIR=$(mktemp -d)
 trap 'rm -rf "$TMPDIR"' EXIT
@@ -18,11 +17,30 @@ ghcurl() {
   fi
 }
 
-jq_filter() {
-  jq -cr 'map(select(.author_association == "OWNER"))|map(.number |= tostring| del(.reactions,.user)|@base64)[]'
+download_artifacts() {
+  ARTIFACTS_URL=https://api.github.com/repos/nntrn/save/actions/artifacts
+  ghcurl "https://api.github.com/repos/nntrn/save/actions/artifacts" $TMPDIR/artifacts.json
+
+  LAST_ARCHIVE_DATA_URL="$(
+    curl -s -H "Authorization: Bearer $GITHUB_TOKEN" "$ARTIFACTS_URL" |
+      jq -r '.artifacts[]|select(.name == "page_data" and (.expired|not)).archive_download_url? // ""'
+  )"
+
+  if [[ -n $LAST_ARCHIVE_DATA_URL ]]; then
+    curl -o data.zip -L -H "Authorization: Bearer $GITHUB_TOKEN" "$LAST_ARCHIVE_DATA_URL"
+    unzip data.zip
+    mkdir _data
+    tar -xf artifact.tar -C _data
+  else
+    exit 1
+  fi
+
 }
 
 build_all() {
+  ISSUESFILE=$TMPDIR/issues.json
+  ghcurl "https://api.github.com/repos/nntrn/save/issues?per_page=100" $ISSUESFILE
+
   mkdir -p _data/{body,comments}
   BODYFILE=$TMPDIR/input.json
   DUMPFILE=$TMPDIR/dump.json
@@ -54,6 +72,14 @@ if [[ ! -f $ISSUESFILE ]]; then
   ghcurl "https://api.github.com/repos/nntrn/save/issues?per_page=100" $ISSUESFILE
 fi
 
-env
+run_command=build_all
 
-build_all $ISSUESFILE
+if [[ -n $1 ]]; then
+  case $1 in
+  workflow_dispatch) run_command=build_all ;;
+  push) run_command=download_artifacts ;;
+  esac
+  shift 1
+fi
+
+$run_command
