@@ -1,4 +1,4 @@
-name: Trigger issue
+name: Test trigger issue
 
 on:
   issue_comment:
@@ -12,43 +12,23 @@ jobs:
     if: github.repository_owner == github.triggering_actor
     steps:
       - uses: actions/checkout@v4
-
-      - name: Setup
+      - name: Environment
+        run: >
+          env | sort
+      - name: Download
         run: |
-          curl -O https://nntrn.github.io/save/assets/site.zip
-          if [[ -d _site ]]; then rm -rf _site; fi
-          unzip site.zip
+          LAST_ARCHIVE_URL="$(
+            curl -s -H "Authorization: Bearer $GITHUB_TOKEN" "$ARTIFACTS_URL" |
+              jq -r '.artifacts|sort_by(.created_at)|map(select(.expired|not))|last|.archive_download_url? // ""'
+          )"
 
-      - name: Comments
-        if: ${{ env.ISSUE_COMMENTS > 0 }}
-        run: |
-          curl -s -o ${{env.API_COMMENTS}} \
-            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-            "${{env.ISSUE_COMMENTS_URL}}?per_page=100" 
-
-          jq 'map(select(.author_association == "OWNER"))
-          | map(.number |= tostring| del(.reactions,.user))' ${{env.API_COMMENTS}} > _site
-
-          jq -r 'include "issue"; comments_md' ${{env.API_COMMENTS}} >> ${{env.ISSUE_FILEPATH}}
-
-      - name: Comments
-        if: ${{ env.ISSUE_COMMENTS > 0 }}
-        run: |
-          curl -s -o ${{env.API_COMMENTS}} \
-            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-            "${{env.ISSUE_COMMENTS_URL}}?per_page=100" 
-
-          jq 'map(select(.author_association == "OWNER"))
-          | map(.number |= tostring| del(.reactions,.user))' ${{env.API_COMMENTS}} > _site
-
-          jq -r 'include "issue"; comments_md' ${{env.API_COMMENTS}} >> ${{env.ISSUE_FILEPATH}}
-
-      - name: Commit and push
-        continue-on-error: true
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions@noreply.github.com"
-          git config push.default current
-          git add ${{ env.DOCS_DIR }}
-          git commit -m "$GITHUB_WORKFLOW ${{env.ISSUE_FILEPATH}}"
-          git push
+          if [[ -n $LAST_ARCHIVE_URL ]]; then
+            curl -o ghpage.zip -L -H "Authorization: Bearer $GITHUB_TOKEN" "$LAST_ARCHIVE_URL"
+            unzip ghpage.zip
+            mkdir _site
+            tar -xf artifact.tar -C _site
+          else
+            exit 1
+          fi
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
