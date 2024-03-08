@@ -18,6 +18,7 @@ ghcurl() {
 }
 
 download_artifacts() {
+  _log "Running download_artifacts" 36
   ARTIFACTS_URL=https://api.github.com/repos/nntrn/save/actions/artifacts
   ghcurl "https://api.github.com/repos/nntrn/save/actions/artifacts" $TMPDIR/artifacts.json
 
@@ -37,6 +38,7 @@ download_artifacts() {
 }
 
 build_all() {
+  _log "Running build_all" 36
   ISSUESFILE=$TMPDIR/issues.json
   BODYFILE=$TMPDIR/input.json
   DUMPFILE=$TMPDIR/dump.json
@@ -63,14 +65,24 @@ build_all() {
   done
 }
 
-run_command=build_all
-
 if [[ -n $1 ]]; then
+  echo $1
   case $1 in
-  workflow_dispatch) run_command=build_all ;;
-  push) run_command=download_artifacts ;;
+  workflow_dispatch)
+    build_all
+    ;;
+  push*)
+    download_artifacts
+    ;;
+  issue*)
+    download_artifacts
+    ;;
+  *) HAS_ERROR=1 ;;
   esac
+else
+  HAS_ERROR=1
 fi
 
-echo "Running $run_command"
-$run_command
+if [[ $HAS_ERROR -eq 1 ]]; then
+  exit 1
+fi
