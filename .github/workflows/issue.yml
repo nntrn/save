@@ -19,6 +19,12 @@ jobs:
         run: >
           env | sort
       - name: Environment
-        run: echo '${{ toJSON(github) }}'>>$GITHUB_STEP_SUMMARY
+        run: |
+          echo '```' >>$GITHUB_STEP_SUMMARY
+          env | sort >>$GITHUB_STEP_SUMMARY
+          echo -e '```\n' >>$GITHUB_STEP_SUMMARY
+          echo '```json' >>$GITHUB_STEP_SUMMARY
+          echo '${{ toJSON(github) }}' >>$GITHUB_STEP_SUMMARY
+          echo '```' >>$GITHUB_STEP_SUMMARY
       # - name: Upload artifact
       #   uses: actions/upload-pages-artifact@v3
