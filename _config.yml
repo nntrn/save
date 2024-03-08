@@ -8,7 +8,6 @@ favicon_ico: /assets/favicon.ico
 kramdown:
   smart_quotes: ["apos", "apos", "quot", "quot"]
 
-ignore_theme_config: true
 page_gen-dirs: false
 
 page_gen:
