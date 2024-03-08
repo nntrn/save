@@ -44,6 +44,8 @@ build_all() {
     jq 'map(select(.author_association == "OWNER"))
     | map(.number |= tostring| del(.reactions,.user))' $TMPISSUEID >_data/comments/$issue_id.json
   done
+  mkdir -p assets
+  zip -r assets/site.zip _data
 }
 
 if [[ ! -f $ISSUESFILE ]]; then
