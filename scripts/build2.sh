@@ -17,7 +17,7 @@ ghcurl() {
   fi
 }
 
-run_download_artifacts() {
+download_artifacts() {
   ARTIFACTS_URL=https://api.github.com/repos/nntrn/save/actions/artifacts
   ghcurl "https://api.github.com/repos/nntrn/save/actions/artifacts" $TMPDIR/artifacts.json
 
@@ -36,17 +36,17 @@ run_download_artifacts() {
   fi
 }
 
-run_build_all() {
+build_all() {
   ISSUESFILE=$TMPDIR/issues.json
-  ghcurl "https://api.github.com/repos/nntrn/save/issues?per_page=100" $ISSUESFILE
-
-  mkdir -p _data/{body,comments}
   BODYFILE=$TMPDIR/input.json
   DUMPFILE=$TMPDIR/dump.json
 
-  jq -cr 'map(select(.author_association == "OWNER"))|map(.number |= tostring| del(.reactions,.user)|@base64)[]' ${1:-ISSUESFILE} >$BODYFILE
+  ghcurl "https://api.github.com/repos/nntrn/save/issues?per_page=100" $ISSUESFILE
+  mkdir -p _data/{body,comments}
 
   _log "Creating body"
+  jq -cr 'map(select(.author_association == "OWNER"))|map(.number |= tostring| del(.reactions,.user)|@base64)[]
+  ' $ISSUESFILE >$BODYFILE
   while read LINE; do
     echo "$LINE" | base64 -d | jq >$DUMPFILE
     NEWNAME="_data/body/$(jq -r '.number' $DUMPFILE).json"
@@ -54,27 +54,23 @@ run_build_all() {
   done <$BODYFILE
 
   _log "Creating comments"
-  COMMENTS=($(jq '.[]|select(.comments > 0)|.number' ${1:-ISSUESFILE}))
+  COMMENTS=($(jq '.[]|select(.comments > 0)|.number' $ISSUESFILE))
   for issue_id in "${COMMENTS[@]}"; do
     TMPISSUEID="$TMPDIR/issue-${issue_id}.json"
     ghcurl "https://api.github.com/repos/nntrn/save/issues/$issue_id/comments?per_page=100" "$TMPISSUEID"
-
-    jq 'map(select(.author_association == "OWNER"))
-    | map(.number |= tostring| del(.reactions,.user))' $TMPISSUEID >_data/comments/$issue_id.json
+    jq 'map(select(.author_association == "OWNER"))|map(.number |= tostring| del(.reactions,.user))
+    ' $TMPISSUEID >_data/comments/$issue_id.json
   done
-
 }
 
 run_command=build_all
 
-echo run
 if [[ -n $1 ]]; then
   case $1 in
   workflow_dispatch) run_command=build_all ;;
   push) run_command=download_artifacts ;;
   esac
-  shift 1
 fi
 
 echo "Running $run_command"
-run_${run_command}
+$run_command
