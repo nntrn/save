@@ -17,7 +17,7 @@ ghcurl() {
   fi
 }
 
-download_artifacts() {
+run_download_artifacts() {
   ARTIFACTS_URL=https://api.github.com/repos/nntrn/save/actions/artifacts
   ghcurl "https://api.github.com/repos/nntrn/save/actions/artifacts" $TMPDIR/artifacts.json
 
@@ -34,10 +34,9 @@ download_artifacts() {
   else
     exit 1
   fi
-
 }
 
-build_all() {
+run_build_all() {
   ISSUESFILE=$TMPDIR/issues.json
   ghcurl "https://api.github.com/repos/nntrn/save/issues?per_page=100" $ISSUESFILE
 
@@ -63,17 +62,12 @@ build_all() {
     jq 'map(select(.author_association == "OWNER"))
     | map(.number |= tostring| del(.reactions,.user))' $TMPISSUEID >_data/comments/$issue_id.json
   done
-  mkdir -p assets
-  zip -r assets/site.zip _data
-}
 
-if [[ ! -f $ISSUESFILE ]]; then
-  ISSUESFILE=$TMPDIR/issues.json
-  ghcurl "https://api.github.com/repos/nntrn/save/issues?per_page=100" $ISSUESFILE
-fi
+}
 
 run_command=build_all
 
+echo run
 if [[ -n $1 ]]; then
   case $1 in
   workflow_dispatch) run_command=build_all ;;
@@ -82,4 +76,5 @@ if [[ -n $1 ]]; then
   shift 1
 fi
 
-$run_command
+echo "Running $run_command"
+run_${run_command}

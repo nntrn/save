@@ -27,7 +27,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - run: ./scripts/build2.sh $GITHUB_EVENT_NAME
+      - run: ./scripts/build2.sh ${{vars.GITHUB_EVENT_NAME}}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Set up Ruby
