@@ -17,6 +17,9 @@ page_gen:
     index_files: true
     dir: "number"
 
+sass:
+  style: compact
+
 compress_html:
   clippings: [div, p, ul, td, h1, h2]
   endings: all
@@ -28,7 +31,7 @@ compress_html:
 exclude:
   - Gemfile
   - Gemfile.lock
-  - _issues/
   - scripts
+  - _data~
   - .cache
-  - save2
+  - .vscode

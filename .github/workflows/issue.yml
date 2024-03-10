@@ -19,7 +19,8 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      issues: write
+      issues: read
+      actions: read
     if: github.repository_owner == github.triggering_actor
     steps:
       - uses: actions/checkout@v4
