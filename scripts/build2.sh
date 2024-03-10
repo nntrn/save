@@ -21,41 +21,8 @@ jq_filter() {
   jq 'map(select(.author_association == "OWNER"))|map(.number |= tostring| del(.reactions,.user))'
 }
 
-download_single_issue() {
-  mkdir -p _data/{body,comments}
-  local id=$1
-  ISSUEFILE=_data/body/${id}.json
-  COMMENTSFILE=_data/comments/${id}.json
-  mkdir -p _data/{body,comments}
-
-  ghcurl "https://api.github.com/repos/nntrn/save/issues/$id" | jq '.number |= tostring|del(.reactions,.user)' >$ISSUEFILE
-  COMMENTS=$(jq -r '.comments' $ISSUEFILE)
-  if [[ $COMMENTS -gt 0 ]]; then
-    ghcurl "https://api.github.com/repos/nntrn/save/issues/$id/comments?per_page=100" | jq_filter >$COMMENTSFILE
-  fi
-}
-
-download_artifacts() {
-  _log "Running download_artifacts" 36
-
-  LAST_ARCHIVE_DATA_URL="$(
-    ghcurl "https://api.github.com/repos/nntrn/save/actions/artifacts" |
-      jq -r '(.artifacts|sort_by(.created_at)
-        |map(select(.name == "page_data" and (.expired|not)).archive_download_url)|last)? // ""'
-  )"
-
-  if [[ -n $LAST_ARCHIVE_DATA_URL ]]; then
-    _log "$LAST_ARCHIVE_DATA_URL"
-    curl -o $TMPDIR/data.zip -L -H "Authorization: Bearer $GITHUB_TOKEN" "$LAST_ARCHIVE_DATA_URL"
-    unzip -d _data $TMPDIR/data.zip
-  else
-    echo "Aborting..."
-    exit 1
-  fi
-}
-
 build_all() {
-  _log "Running build_all" 36
+  _log "Running build_all"
   ISSUESFILE=$TMPDIR/issues.json
   BODYFILE=$TMPDIR/input.json
   DUMPFILE=$TMPDIR/dump.json
@@ -82,7 +49,40 @@ build_all() {
   done
 }
 
-export issue_id
+download_artifacts() {
+  _log "Running download_artifacts"
+  ghcurl "https://api.github.com/repos/nntrn/save/actions/artifacts" $TMPDIR/artifacts.json
+
+  LAST_ARCHIVE_DATA_URL="$(
+    jq -r '(.artifacts|sort_by(.created_at)
+      |map(select(.name == "page_data" and (.expired|not)).archive_download_url)|last)? // ""' $TMPDIR/artifacts.json
+  )"
+
+  if [[ -n $LAST_ARCHIVE_DATA_URL ]]; then
+    _log "$LAST_ARCHIVE_DATA_URL"
+    ZIPFILENAME=$TMPDIR/data-$RANDOM.zip
+    curl -o $ZIPFILENAME -L -H "Authorization: Bearer $GITHUB_TOKEN" "$LAST_ARCHIVE_DATA_URL"
+    unzip -n -d _data $ZIPFILENAME
+  else
+    build_all
+  fi
+}
+
+download_single_issue() {
+  local issueid=$1
+  _log "Running download_single_issue $issueid"
+  ISSUEFILE=_data/body/${issueid}.json
+  COMMENTSFILE=_data/comments/${issueid}.json
+  mkdir -p _data/{body,comments}
+
+  ghcurl "https://api.github.com/repos/nntrn/save/issues/$issueid" | jq '.number |= tostring|del(.reactions,.user)' >$ISSUEFILE
+  NUMCOMMENTS=$(jq -r '.comments' $ISSUEFILE)
+  if [[ $NUMCOMMENTS -gt 0 ]]; then
+    _log "Writing $COMMENTSFILE"
+    ghcurl "https://api.github.com/repos/nntrn/save/issues/$issueid/comments?per_page=100" | jq_filter >$COMMENTSFILE
+  fi
+}
+
 echo "$@"
 if [[ -n $1 ]]; then
   echo "$1"
@@ -93,7 +93,6 @@ if [[ -n $1 ]]; then
   build) run_command=build_all ;;
   esac
 
-  echo "Running $run_command"
   $run_command
 
   if [[ -n $2 ]]; then
