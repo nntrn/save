@@ -1,9 +1,13 @@
 #!/usr/bin/env bash
 
 set -e
-export GITHUB_TOKEN=$GH_TOKEN
+export GITHUB_TOKEN
 TMPDIR=$(mktemp -d)
 trap 'rm -rf "$TMPDIR"' EXIT
+
+if [[ -z $GITHUB_TOKEN ]]; then
+  GITHUB_TOKEN=$GH_TOKEN
+fi
 
 _log() { echo -e "\033[0;${2:-33}m$*\033[0m" 3>&2 2>&1 >&3 3>&-; }
 

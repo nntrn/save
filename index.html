@@ -3,3 +3,11 @@ layout: page
 title: Home
 type: home
 ---
+
+<ul>
+{%- for item in site.data.body -%}
+{%- assign newobj = item|slice: 1| first -%}
+{%- assign urlpath = newobj.number %}
+  <li><a href="{{urlpath|relative_url}}">{{newobj.title}}</a> - last modified on {{newobj.updated_at|date:"%b %d %Y"}}</li>
+{%- endfor %}
+</ul>

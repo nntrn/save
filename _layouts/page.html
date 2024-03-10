@@ -3,11 +3,4 @@ layout: default
 type: page
 ---
 
-<div data-layout="{{page.type}}" class="flex wrap gap" style="--gap:2rem">
-  <div class="sidebar">
-    {% include sidebar.html -%}
-  </div>
-  <div class="page">
-    {{content}}
-  </div>
-</div>
+{{content}}

@@ -28,10 +28,10 @@
 </style>
 </head>
 <body>
-<main>
 <header>
   <h1 class="title"><a href="{{ '/' | relative_url }}">{{site.title}}</a></h1>
 </header>
+<main data-layout="{{page.type}}" class="flex wrap gap" style="--gap:2rem">
 {{content}}
 </main>
 <footer>
