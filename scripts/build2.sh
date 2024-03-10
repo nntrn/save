@@ -13,30 +13,43 @@ _log() { echo -e "\033[0;${2:-33}m$*\033[0m" 3>&2 2>&1 >&3 3>&-; }
 
 ghcurl() {
   local URL="${1:-"https://api.github.com/repos/nntrn/save/issues?per_page=100"}"
-  _log "Fetching $URL"
-  curl -o ${2:?} "$URL" -H "Authorization: Bearer $GITHUB_TOKEN" --fail
-  if [[ $? -ne 0 ]]; then
-    _log "An error occured. Aborting..." 31
-    exit 1
+  curl -s -o ${2:-/dev/stdout} "$URL" -H "Authorization: Bearer $GITHUB_TOKEN" --fail
+  [[ $? -ne 0 ]] && exit 1
+}
+
+jq_filter() {
+  jq 'map(select(.author_association == "OWNER"))|map(.number |= tostring| del(.reactions,.user))'
+}
+
+download_single_issue() {
+  mkdir -p _data/{body,comments}
+  local id=$1
+  ISSUEFILE=_data/body/${id}.json
+  COMMENTSFILE=_data/comments/${id}.json
+  mkdir -p _data/{body,comments}
+
+  ghcurl "https://api.github.com/repos/nntrn/save/issues/$id" | jq '.number |= tostring|del(.reactions,.user)' >$ISSUEFILE
+  COMMENTS=$(jq -r '.comments' $ISSUEFILE)
+  if [[ $COMMENTS -gt 0 ]]; then
+    ghcurl "https://api.github.com/repos/nntrn/save/issues/$id/comments?per_page=100" | jq_filter >$COMMENTSFILE
   fi
 }
 
 download_artifacts() {
   _log "Running download_artifacts" 36
-  ARTIFACTS_URL=https://api.github.com/repos/nntrn/save/actions/artifacts
-  ghcurl "https://api.github.com/repos/nntrn/save/actions/artifacts" $TMPDIR/artifacts.json
 
   LAST_ARCHIVE_DATA_URL="$(
-    curl -s -H "Authorization: Bearer $GITHUB_TOKEN" "$ARTIFACTS_URL" |
-      jq -r '.artifacts[]|select(.name == "page_data" and (.expired|not)).archive_download_url? // ""'
+    ghcurl "https://api.github.com/repos/nntrn/save/actions/artifacts" |
+      jq -r '(.artifacts|sort_by(.created_at)
+        |map(select(.name == "page_data" and (.expired|not)).archive_download_url)|last)? // ""'
   )"
 
   if [[ -n $LAST_ARCHIVE_DATA_URL ]]; then
-    curl -o data.zip -L -H "Authorization: Bearer $GITHUB_TOKEN" "$LAST_ARCHIVE_DATA_URL"
-    unzip data.zip
-    mkdir _data
-    tar -xf artifact.tar -C _data
+    _log "$LAST_ARCHIVE_DATA_URL"
+    curl -o $TMPDIR/data.zip -L -H "Authorization: Bearer $GITHUB_TOKEN" "$LAST_ARCHIVE_DATA_URL"
+    unzip -d _data $TMPDIR/data.zip
   else
+    echo "Aborting..."
     exit 1
   fi
 }
@@ -69,16 +82,21 @@ build_all() {
   done
 }
 
-env
-run_command=build_all
-
+export issue_id
+echo "$@"
 if [[ -n $1 ]]; then
+  echo "$1"
   case $1 in
   workflow_dispatch) run_command=build_all ;;
-  push*) run_command=download_artifacts ;;
-  issue*) run_command=download_artifacts ;;
+  push) run_command=download_artifacts ;;
+  issues) run_command=download_artifacts ;;
+  build) run_command=build_all ;;
   esac
-fi
 
-echo "Running $run_command"
-$run_command
+  echo "Running $run_command"
+  $run_command
+
+  if [[ -n $2 ]]; then
+    download_single_issue $2
+  fi
+fi

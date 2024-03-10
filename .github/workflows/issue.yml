@@ -1,10 +1,10 @@
-name: Test trigger issue
+name: Trigger issue
 
 on:
   issue_comment:
-    types: [created, edited]
+    types: [created, edited, deleted]
   issues:
-    types: [opened, edited]
+    types: [opened, edited, deleted]
 
 env:
   ARTIFACTS_URL: https://api.github.com/repos/nntrn/save/actions/artifacts
@@ -15,16 +15,31 @@ jobs:
     if: github.repository_owner == github.triggering_actor
     steps:
       - uses: actions/checkout@v4
-      - name: Environment
-        run: >
-          env | sort
-      - name: Environment
-        run: |
-          echo '```' >>$GITHUB_STEP_SUMMARY
-          env | sort >>$GITHUB_STEP_SUMMARY
-          echo -e '```\n' >>$GITHUB_STEP_SUMMARY
-          echo '```json' >>$GITHUB_STEP_SUMMARY
-          echo '${{ toJSON(github) }}' >>$GITHUB_STEP_SUMMARY
-          echo '```' >>$GITHUB_STEP_SUMMARY
-      # - name: Upload artifact
-      #   uses: actions/upload-pages-artifact@v3
+      - run: ./scripts/build2.sh issues ${{github.event.issue.number}}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "2.7.1"
+          bundler-cache: true
+      - name: Build with Jekyll
+        run: bundle exec jekyll build
+      - name: Upload _data
+        uses: actions/upload-artifact@v4
+        with:
+          name: page_data
+          path: _data
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+  # Deployment job
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

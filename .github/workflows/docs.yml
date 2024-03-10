@@ -3,11 +3,7 @@ name: Build Docs
 on:
   workflow_dispatch:
   push:
-    paths: ["_config.yml", "**.html", "_layouts/**", "_includes/**"]
-  issue_comment:
-    types: [deleted]
-  issues:
-    types: [deleted]
+    paths: ["_config.yml", "_layouts/**", "_includes/**"]
 
 permissions:
   contents: read
@@ -27,7 +23,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - run: ./scripts/build2.sh ${{vars.GITHUB_EVENT_NAME}}
+      - run: ./scripts/build2.sh ${{github.event_name}}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Set up Ruby
@@ -37,9 +33,6 @@ jobs:
           bundler-cache: true
       - name: Build with Jekyll
         run: bundle exec jekyll build
-      # - name: Set up Pages
-      #   id: pages
-      #   uses: actions/configure-pages@v2
       - name: Upload _data
         uses: actions/upload-artifact@v4
         with:
