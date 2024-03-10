@@ -1,11 +1,10 @@
 #!/usr/bin/env bash
 
-set -e
+# set -e
 export GITHUB_TOKEN
 TMPDIR=$(mktemp -d)
-trap 'rm -rf "$TMPDIR"' EXIT
 
-if [[ -z $GITHUB_TOKEN ]]; then
+if [[ -n $GH_TOKEN ]]; then
   GITHUB_TOKEN=$GH_TOKEN
 fi
 
@@ -13,7 +12,7 @@ _log() { echo -e "\033[0;${2:-33}m$*\033[0m" 3>&2 2>&1 >&3 3>&-; }
 
 ghcurl() {
   local URL="${1:-"https://api.github.com/repos/nntrn/save/issues?per_page=100"}"
-  curl -s -o ${2:-/dev/stdout} "$URL" -H "Authorization: Bearer $GITHUB_TOKEN" --fail
+  curl -L -s -o ${2:-/dev/stdout} -H "Authorization: Bearer $GITHUB_TOKEN" "$URL" --fail
   [[ $? -ne 0 ]] && exit 1
 }
 
@@ -51,11 +50,11 @@ build_all() {
 
 download_artifacts() {
   _log "Running download_artifacts"
-  ghcurl "https://api.github.com/repos/nntrn/save/actions/artifacts" $TMPDIR/artifacts.json
+  ARTIFACTS_FILE=artifacts.json
+  ghcurl "https://api.github.com/repos/nntrn/save/actions/artifacts" >$ARTIFACTS_FILE
 
   LAST_ARCHIVE_DATA_URL="$(
-    jq -r '(.artifacts|sort_by(.created_at)
-      |map(select(.name == "page_data" and (.expired|not)).archive_download_url)|last)? // ""' $TMPDIR/artifacts.json
+    jq -r '(.artifacts|sort_by(.created_at)|map(select(.name == "page_data" and (.expired|not)).archive_download_url)|last)? // ""' $ARTIFACTS_FILE
   )"
 
   if [[ -n $LAST_ARCHIVE_DATA_URL ]]; then
@@ -83,7 +82,10 @@ download_single_issue() {
   fi
 }
 
+trap 'rm -rf "$TMPDIR"' EXIT
+
 echo "$@"
+run_command=""
 if [[ -n $1 ]]; then
   echo "$1"
   case $1 in
