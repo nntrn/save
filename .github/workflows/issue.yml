@@ -10,7 +10,7 @@ env:
   ARTIFACTS_URL: https://api.github.com/repos/nntrn/save/actions/artifacts
 
 jobs:
-  create_content:
+  build:
     runs-on: ubuntu-latest
     if: github.repository_owner == github.triggering_actor
     steps:
