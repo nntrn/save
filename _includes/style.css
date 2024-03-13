@@ -1,12 +1,13 @@
 *{box-sizing:border-box}
 html{font-size:13px}
 body{scrollbar-width:thin;overflow-x:hidden;overflow-y:auto;font-size:inherit;padding:0 0;margin:0 0;font-family:helvetica neue,helvetica,sans-serif}
-a:hover{color:#222;background:rgba(255,255,0,.8705882353)}
+a:hover{color:#222}
 a{text-decoration:1.25px underline;text-decoration-skip-ink:none;text-underline-offset:1px;text-rendering:geometricprecision;color:#00f}
 code{font-size:11px}
 header{position:sticky;top:0;z-index:10000;background:#fff;border-bottom:#aaa 1px solid}
-footer{padding:.5rem 1rem}
+footer{padding:1rem 0;/*! border-top: 1px solid #aaa; */margin:1rem 1rem;margin-bottom:0}
 h3{margin:0 0}
+h4{margin:.5rem 0}
 hr{margin:1.5rem 0;border:0;border-bottom:1px solid #aaa}
 li table *{display:inline;line-height:1}
 li:empty{display:none}
@@ -14,7 +15,9 @@ li{padding:0 .35rem}
 li pre{padding:.5rem;white-space:pre-wrap;overflow-x:hidden;margin:.4rem 0}
 li>code{display:inline-block;padding:0 3px!important}
 p{margin:.5rem 0}
-pre{padding:1.25rem;background:#222;color:#fff;white-space:pre;font-size:10px;margin:0 0;overflow-x:auto;width:100%}
+pre{scrollbar-width:thin;padding:.75rem .5rem;background:#222;color:#fff;white-space:pre;font-size:10px;margin:0 0;overflow-x:auto;width:100%}
+div.highlight{padding-right:2rem}
+pre.highlight{overflow-x:scroll;border-right:.5rem solid #222}
 table *{text-align:left;border-collapse:collapse}
 table{border-collapse:collapse;margin:0 0;border-spacing:0;border:none}
 td,th{padding:.25rem 1rem;padding-left:0}
@@ -27,19 +30,16 @@ ul ul{margin-top:0;margin-bottom:0}
 .flex{display:flex}
 .gap{gap:var(--gap,.5rem)}
 .highlighter-rouge{padding:0 0;background:#222;color:#fff}
-.page{flex:3;max-width:70vw;margin:1rem}
+.page{flex:3;max-width:70vw;margin:.5rem 1rem}
 .page ul{display:flex;flex-direction:column;gap:.5rem}
-.sidebar{flex:1;max-width:30vw}
-.sidebar ul{display:flex;flex-direction:column;gap:.25rem;padding:0 1rem;margin:0 0;margin:1rem}
+.page,.sidebar{padding:0 1rem}
+.sidebar{flex:1;max-width:30vw;min-width:200px}
+.sidebar ul{display:flex;flex-direction:column;gap:.25rem;padding:0 1rem;margin:0 0;/*! margin:1rem 0; */padding-right:0}
 .sidebar a{text-decoration:underline currentColor 1px;color:inherit}
 .sidebar a:hover{background:#ff0}
-.sidebar>ul>li:after{content:"#" attr(data-issue);color:#a9a9a9;margin-left:.25rem;font-size:.8em}
-.time{display:flex;gap:1rem;margin:.25rem 0;justify-content:space-between}
-.time time{text-transform:uppercase;font-size:.9rem}
-.time time:before{content:attr(data-label);box-shadow:inset 1px 1px,inset -1px -1px;padding:0 3px;margin-right:.2rem;font-size:.9em}
 .title{margin:0 0;padding:.5rem 1rem;padding-bottom:1rem}
 .title a{color:#222;margin:0 0;padding:0 0;text-decoration:3px underline;text-underline-offset:2px}
-.title a:hover{text-decoration-color:#f0f;background:0 0}
+.title a:hover{text-decoration-color:#0ff;background:0 0}
 .page-title{margin:0 0;letter-spacing:-.5px;margin-bottom:1rem}
 [hidden]{display:none}
 [data-layout=home]{flex-direction:column}
@@ -51,7 +51,7 @@ main{padding:0 0;margin:.5rem 1rem}
 .sidebar ul{margin:0 0}
 .page{max-width:unset}
 [data-layout=issue]{flex-direction:column-reverse}
-.sidebar{max-width:unset}
+.page,.sidebar{max-width:unset;padding:0 0;margin:0 0}
 }
 .highlight .go{color:#0ff}
 .highlight .c{color:#aaa}

@@ -9,10 +9,8 @@ favicon_ico: /assets/favicon.ico
 kramdown:
   smart_quotes: ["apos", "apos", "quot", "quot"]
 
-page_gen-dirs: false
-
 page_gen:
-  - data: "body"
+  - data: "issues"
     template: "body"
     index_files: true
     dir: "number"
@@ -29,7 +27,6 @@ compress_html:
   profile: false
 
 exclude:
-  - Gemfile
   - Gemfile.lock
   - scripts
   - _data~

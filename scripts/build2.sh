@@ -4,6 +4,20 @@
 export GITHUB_TOKEN
 TMPDIR=$(mktemp -d)
 
+cleanup() {
+  RC=$?
+  if [[ $RC -eq 0 ]]; then
+    rm -rf $TMPDIR
+    [[ -d _data~ ]] && rm -rf _data~
+  else
+    echo "TMPDIR=$TMPDIR"
+  fi
+}
+
+# trap cleanup INT TERM EXIT
+
+# trap 'rm -rf "$TMPDIR"' EXIT
+
 if [[ -n $GH_TOKEN ]]; then
   GITHUB_TOKEN=$GH_TOKEN
 fi
@@ -22,29 +36,18 @@ jq_filter() {
 
 build_all() {
   _log "Running build_all"
-  ISSUESFILE=$TMPDIR/issues.json
-  BODYFILE=$TMPDIR/input.json
-  DUMPFILE=$TMPDIR/dump.json
-
-  ghcurl "https://api.github.com/repos/nntrn/save/issues?per_page=100" $ISSUESFILE
-  mkdir -p _data/{body,comments}
-
-  _log "Creating body"
-  jq -cr 'map(select(.author_association == "OWNER"))|map(.number |= tostring| del(.reactions,.user)|@base64)[]
-  ' $ISSUESFILE >$BODYFILE
-  while read LINE; do
-    echo "$LINE" | base64 -d | jq >$DUMPFILE
-    NEWNAME="_data/body/$(jq -r '.number' $DUMPFILE).json"
-    cp $DUMPFILE $NEWNAME
-  done <$BODYFILE
+  [[ -d _data ]] && mv _data _data~
+  mkdir -p _data/comments
+  ghcurl "https://api.github.com/repos/nntrn/save/issues?per_page=100" |
+    jq 'map(select(.author_association == "OWNER")|del(.reactions,.user)|.number |= tostring)' >_data/issues.json
 
   _log "Creating comments"
-  COMMENTS=($(jq '.[]|select(.comments > 0)|.number' $ISSUESFILE))
+  COMMENTS=($(jq -r 'map(select(.comments > 0)|.number)|join("\n")' _data/issues.json))
   for issue_id in "${COMMENTS[@]}"; do
-    TMPISSUEID="$TMPDIR/issue-${issue_id}.json"
-    ghcurl "https://api.github.com/repos/nntrn/save/issues/$issue_id/comments?per_page=100" "$TMPISSUEID"
-    jq 'map(select(.author_association == "OWNER"))|map(.number |= tostring| del(.reactions,.user))
-    ' $TMPISSUEID >_data/comments/$issue_id.json
+    ghcurl "https://api.github.com/repos/nntrn/save/issues/$issue_id/comments?per_page=100" |
+      jq 'map(select(.author_association == "OWNER")
+      | . + {number: (.issue_url|split("/")|last)}
+      | del(.reactions,.user))' >_data/comments/$issue_id.json
   done
 }
 
@@ -90,8 +93,7 @@ download_single_issue() {
   fi
 }
 
-trap 'rm -rf "$TMPDIR"' EXIT
-
+trap cleanup EXIT
 run_command="build_all"
 
 if [[ -n $1 ]]; then

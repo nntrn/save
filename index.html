@@ -5,9 +5,8 @@ type: home
 ---
 
 <ul>
-{%- for item in site.data.body -%}
-{%- assign newobj = item|slice: 1| first -%}
-{%- assign urlpath = newobj.number %}
-  <li><a href="{{urlpath|relative_url}}">{{newobj.title}}</a> - last modified on {{newobj.updated_at|date:"%b %d %Y"}}</li>
+{%- for item in site.data.issues -%}
+{%- assign urlpath = item.number %}
+  <li data-modified="{{item.updated_at|date:'%b %d %Y'}}"><a href="{{urlpath|relative_url}}">{{item.title}}</a></li>
 {%- endfor %}
 </ul>

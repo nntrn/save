@@ -1,12 +1,12 @@
+<h4>Posts</h4>
 <ul>
-{%- for item in site.data.body %}
-{%- assign newobj = item|slice: 1| first -%}
-{%- assign urlpath = newobj.number %}
-<li data-issue="{{newobj.number}}" style="order: {{newobj.number}}">
-  {%- if page.number == newobj.number -%}
-  <strong>{{newobj.title}}</strong>
+{%- for item in site.data.issues | sort: "created_at" %}
+{%- assign urlpath = item.number %}
+<li data-issue="{{item.number}}">
+  {%- if page.number == item.number -%}
+  <strong>{{item.title}}</strong>
   {%- else -%}
-  <a href="{{urlpath| relative_url }}">{{newobj.title}}</a>
+  <a href="{{urlpath| relative_url }}">{{item.title}}</a>
   {%- endif -%}
 </li>
 {%- endfor %}

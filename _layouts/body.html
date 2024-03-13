@@ -8,10 +8,6 @@ type: issue
 </div>
 <div class="page">
   <h2 class="page-title">{{page.title}}</h2>
-  <div class="time">
-    <time data-label="Created" datetime="{{page.created_at}}">{{page.created_at|date:"%b %d %Y"}}</time>
-    <time data-label="Modified" datetime="{{page.updated_at}}">{{page.updated_at|date:"%b %d %Y"}}</time>
-  </div>
   <section class="body">
   {{ page.body|markdownify }}
   {%- if page.comments > 0 %}
@@ -22,4 +18,6 @@ type: issue
   {%- endfor %}
   {%- endif %}
   </section>
+  <hr>
+  <p>Last modified on <time>{{page.created_at|date:"%b%e, %Y"}}</time></p>
 </div>

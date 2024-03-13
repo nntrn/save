@@ -1,5 +1,5 @@
 # coding: utf-8
-# Generate 
+# Generate html pages from _data and _layouts
 # Adapted from Adolfo Villafiorita and modified by @nntrn (github.com/nntrn)
 
 module Jekyll
@@ -114,14 +114,14 @@ module Jekyll
     end
   end
 
-  module DataPageLinkGenerator
-    include Sanitizer
-
-    def datapage_url(input, dir)
-      extension = @context.registers[:site].config['page_gen-dirs'] ? '/' : '.html'
-    end
-  end
+#   module DataPageLinkGenerator
+#     include Sanitizer
+# 
+#     def datapage_url(input, dir)
+#       extension = @context.registers[:site].config['page_gen-dirs'] ? '.pug' : '.html'
+#     end
+#   end
 
 end
 
-Liquid::Template.register_filter(Jekyll::DataPageLinkGenerator)
+# Liquid::Template.register_filter(Jekyll::DataPageLinkGenerator)
