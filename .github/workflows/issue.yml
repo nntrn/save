@@ -11,9 +11,6 @@ permissions:
   pages: write
   id-token: write
 
-env:
-  ARTIFACTS_URL: https://api.github.com/repos/nntrn/save/actions/artifacts
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -31,7 +28,7 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: "2.7.1"
-          bundler-cache: false
+          bundler-cache: true
       - name: Build with Jekyll
         run: bundle exec jekyll build
       - name: Upload _data
