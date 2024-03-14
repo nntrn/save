@@ -19,5 +19,5 @@ type: issue
   {%- endif %}
   </section>
   <hr>
-  <p>Last modified on <time>{{page.created_at|date:"%b%e, %Y"}}</time></p>
+  <p>Last modified on <time>{{page.created_at| date_to_string: "ordinal", "US"}}</time></p>
 </div>
