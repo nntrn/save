@@ -4,9 +4,10 @@ title: Home
 type: home
 ---
 
+{%- assign items = site.data.issues | sort: "updated_at" |reverse %}
 <ul>
-{%- for item in site.data.issues -%}
+{%- for item in items -%}
 {%- assign urlpath = item.number %}
-  <li data-modified="{{item.updated_at|date:'%b %d %Y'}}"><a href="{{urlpath|relative_url}}">{{item.title}}</a></li>
+  <li data-modified="{{item.updated_at|date:'%F %X'}}"><a href="{{urlpath|relative_url}}">{{item.title}}</a></li>
 {%- endfor %}
 </ul>
