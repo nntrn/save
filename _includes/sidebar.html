@@ -1,6 +1,7 @@
 <h4>Posts</h4>
 <ul>
-{%- for item in site.data.issues | sort: "created_at" %}
+{%- assign items = site.data.issues | sort: "updated_at" |reverse %}
+{%- for item in items %}
 {%- assign urlpath = item.number %}
 <li data-issue="{{item.number}}">
   {%- if page.number == item.number -%}

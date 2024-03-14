@@ -35,6 +35,16 @@ download_all_issues() {
     jq 'map(select(.author_association == "OWNER")|del(.reactions,.user)|.number |= tostring)'
 }
 
+# args <count> <id> <url>
+download_comment() {
+  if [[ $1 -gt 0 ]]; then
+    _log "Fetching comments for #${2}"
+    ghcurl "${3}?per_page=100" |
+      jq --arg n $number 'map(select(.author_association == "OWNER") | 
+        . + {number:$n} | del(.user,.reactions))' >_data/comments/${2}.json
+  fi
+}
+
 build_all() {
   _log "Running build_all"
   [[ -d _data ]] && mv _data _data~
@@ -45,10 +55,11 @@ build_all() {
   jq -r '.[]|[.comments,.number,.comments_url]|join(" ")' _data/issues.json | awk '$1 > 0' >$TMPDIR/comments.txt
 
   while read comments number comments_url; do
-    ghcurl "${comments_url}?per_page=100" |
-      jq --arg n $number 'map(select(.author_association == "OWNER") 
-        | . + {number:$n} 
-        | del(.user,.reactions))' >_data/comments/$number.json
+    download_comment $comments $number $comments_url
+    # ghcurl "${comments_url}?per_page=100" |
+    #   jq --arg n $number 'map(select(.author_association == "OWNER")
+    #     | . + {number:$n}
+    #     | del(.user,.reactions))' >_data/comments/$number.json
   done <$TMPDIR/comments.txt
 }
 
@@ -58,7 +69,9 @@ download_artifacts() {
   ghcurl "https://api.github.com/repos/nntrn/save/actions/artifacts" >$ARTIFACTS_FILE
 
   LAST_ARCHIVE_DATA_URL="$(
-    jq -r '(.artifacts|sort_by(.created_at)|map(select(.name == "page_data" and (.expired|not)).archive_download_url)|last)? // ""' $ARTIFACTS_FILE
+    jq -r '(.artifacts|sort_by(.created_at)
+      | map(select(.name == "page_data" and (.expired|not)).archive_download_url)
+      | last)? // ""' $ARTIFACTS_FILE
   )"
 
   if [[ -n $LAST_ARCHIVE_DATA_URL ]]; then
@@ -80,12 +93,14 @@ download_issue() {
   mkdir -p _data/comments
   download_all_issues >_data/issues.json
 
-  NUMCOMMENTS=$(jq -r '.[]|select((.number|tonumber) == (env.ISSUE_NUM|tonumber)).comments' _data/issues.json)
+  # NUMCOMMENTS=$(jq -r '.[]|select((.number|tonumber) == (env.ISSUE_NUM|tonumber)).comments' _data/issues.json)
 
-  if [[ $NUMCOMMENTS -gt 0 ]]; then
-    _info "Fetching comments for $ISSUE_NUM"
-    ghcurl "https://api.github.com/repos/nntrn/save/issues/$ISSUE_NUM/comments?per_page=100" >_data/comments/${ISSUE_NUM}.json
-  fi
+  c=($(jq -r '.[]|[.comments,.number,.comments_url]|join(" ")' _data/issues.json))
+  download_comment "${c[@]}"
+  # if [[ $NUMCOMMENTS -gt 0 ]]; then
+  #   _info "Fetching comments for $ISSUE_NUM"
+  #   ghcurl "https://api.github.com/repos/nntrn/save/issues/$ISSUE_NUM/comments?per_page=100" >_data/comments/${ISSUE_NUM}.json
+  # fi
 }
 
 noop() {
