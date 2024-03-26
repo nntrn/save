@@ -1,6 +1,7 @@
-<h4>Posts</h4>
-<ul>
-{%- assign items = site.data.issues | sort: "updated_at" |reverse %}
+<hr class="xs-show">
+<h4 class="xs-show">Posts</h4>
+<ul class="py-1 px-1">
+{%- assign items = site.data.issues | sort: "created_at" | reverse %}
 {%- for item in items %}
 {%- assign urlpath = item.number %}
 <li data-issue="{{item.number}}">

@@ -3,21 +3,25 @@ layout: default
 type: issue
 ---
 
+{%- assign pagecreated = page.created_at | date_to_string: "ordinal", "US" %}
+{%- assign pagemodified = page.updated_at |  date_to_string: "ordinal", "US" -%}
+<div class="flex wrap gap">
 <div class="sidebar">
   {% include sidebar.html -%}
 </div>
 <div class="page">
   <h2 class="page-title">{{page.title}}</h2>
+  <p>Created on <time>{{pagecreated}}</time>.{% if pagemodified != pagecreated %} Last modified on <time>{{pagemodified}}</time>.{%- endif %}</p>
+  <hr>
   <section class="body">
   {{ page.body|markdownify }}
+
   {%- if page.comments > 0 %}
   {%- assign comments = site.data.comments[page.number] | sort: "created_at" -%}
   {%- for comment in comments %}
-  <hr>
-  {{ comment.body|markdownify }}
+    {{ comment.body|markdownify }}
   {%- endfor %}
   {%- endif %}
   </section>
-  <hr>
-  <p>Last modified on <time>{{page.created_at| date_to_string: "ordinal", "US"}}</time></p>
+</div>
 </div>
