@@ -11,7 +11,7 @@ kramdown:
 
 page_gen:
   - data: "issues"
-    template: "body"
+    template: "page"
     index_files: true
     dir: "number"
 
@@ -29,6 +29,7 @@ compress_html:
 exclude:
   - Gemfile.lock
   - scripts
-  - _data~
+  - test
+  - _data
   - .cache
   - .vscode

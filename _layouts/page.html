@@ -1,6 +1,23 @@
 ---
 layout: default
-type: page
+type: issue
 ---
-
-{{content}}
+{%- assign pagecreated = page.created_at | date_to_string: "ordinal", "US" %}
+{%- assign pagemodified = page.updated_at |  date_to_string: "ordinal", "US" -%}
+<div class="flex gap md-colr" style="--gap:1rem">
+{% include sidebar.html -%}
+<article class="page">
+  <h2 class="page-title">{{page.title}}</h2>
+  <p>Created on <time>{{pagecreated}}</time>.{% if pagemodified != pagecreated %} Last modified on <time>{{pagemodified}}</time>.{%- endif %}</p>
+  <hr>
+  <section class="page-content">
+    {{ page.body|markdownify }}
+    {%- if page.comments > 0 %}
+    {%- assign comments = site.data.comments[page.number] | sort: "created_at" -%}
+    {%- for comment in comments %}
+      {{ comment.body|markdownify }}
+    {%- endfor %}
+    {%- endif %}
+  </section>
+</article>
+</div>

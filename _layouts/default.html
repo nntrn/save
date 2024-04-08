@@ -1,41 +1,50 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta charset="UTF-8">
-<title>{% if page.title != 'Home' %}{{page.title|default:page.name}} | {%-endif %} {{site.title}}</title>
-<link rel="canonical" href="{{ page.url | absolute_url }}" />
-<link rel="icon" href="{{site.favicon_ico|relative_url}}" type="image/x-icon">
-<meta name="description" content="{{site.description}}" />
-<meta name="author" content="{{site.author}} (@{{site.github_username}})">
-<meta name="robots" content="index, follow">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta property="og:site_name" content="{{ site.title }}">
-<meta property="og:type" content="website">
-<meta property="og:url" content="{{ page.url | absolute_url }}">
-<meta property="og:title" content="{{ page.title | default: site.title }}">
-<meta property="og:description" content="{{ page.description | default: site.description }}">
-<meta name="twitter:site" content="{{ site.title }}">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:url" content="{{ page.url | absolute_url }}">
-<meta name="twitter:title" content="{{ page.title | default: site.title }}">
-<meta name="twitter:description" content="{{ page.description | default: site.description }}">
-<style>
-{% include style.css %}
-</style>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+  <meta charset="UTF-8">
+  <title>{{page.title|default:site.title}} | @nntrn</title>
+  <link rel="canonical" href="{{ page.url | absolute_url }}" />
+  <link rel="icon" href="{{site.favicon_ico|relative_url}}" type="image/x-icon">
+  <meta name="description" content="{{site.description}}" />
+  <meta name="author" content="{{site.author}} (@{{site.github_username}})">
+  <meta name="robots" content="index, follow">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta property="og:site_name" content="{{ site.title }}">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{ page.url | absolute_url }}">
+  <meta property="og:title" content="{{ page.title | default: site.title }}">
+  <meta property="og:description" content="{{ page.description | default: site.description }}">
+  
+  <style>
+  {% include style.css %}
+  </style>
 </head>
 <body>
-<header>
-  <h1 class="title"><a href="{{ '/' | relative_url }}">{{site.title}}</a></h1>
-</header>
-<main data-layout="{{page.type}}" style="--gap:1rem">
-{{content}}
-<footer>
-  <p>Created by <a href="https://github.com/{{site.repository}}">@{{site.github_username}}</a></p>
-</footer>
-</main>
+<div class="container">
+  <header>
+    <h1 class="site-title"><a href="{{ '/' | relative_url }}">{{site.title}}</a></h1>
+    <div class="hidden show-md">Created by <a href="https://github.com/{{site.repository}}">@{{site.github_username}}</a></div>
+  </header>
+  <main>
+  {{ content }}
+  <footer>
+    <p>Created by <a href="https://github.com/{{site.repository}}">@{{site.github_username}}</a>. Copyright {{ site.time | date: '%Y' }}</p>
+  </footer>
+  </main>
+</div>
+
+{%- if page.scripts.size > 0 %}
+<script data-type="data">
+{%- for js in page.scripts %}
+/* {{js}} */
+{% include {{js}} %}
+{% endfor %}
+</script>
+{%- endif %}
 </body>
 </html>

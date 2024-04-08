@@ -1,15 +1,14 @@
-<hr class="xs-show">
-<h4 class="xs-show">Posts</h4>
-<ul class="py-1 px-1">
-{%- assign items = site.data.issues | sort: "created_at" | reverse %}
-{%- for item in items %}
-{%- assign urlpath = item.number %}
-<li data-issue="{{item.number}}">
-  {%- if page.number == item.number -%}
-  <strong>{{item.title}}</strong>
-  {%- else -%}
-  <a href="{{urlpath| relative_url }}">{{item.title}}</a>
-  {%- endif -%}
-</li>
-{%- endfor %}
-</ul>
+<aside class="postlist">
+  <h4>POSTS</h4>
+  <ul>
+    {%- for item in site.data.issues %}
+    <li data-issue="{{item.number}}">
+    {%- if page.number == item.number -%}
+    <strong>{{item.title}}</strong>
+    {%- else -%}
+    <a href="{{item.number| relative_url }}">{{item.title}}</a>
+    {%- endif -%}
+    </li>
+    {%- endfor %}
+  </ul>
+</aside>
