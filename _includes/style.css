@@ -35,7 +35,7 @@ q:after,q:before{content:""}
 q{white-space:pre-wrap}
 small a{color:inherit;text-decoration:inherit}
 small a:hover{opacity:.75}
-article.page{overflow-x:hidden}
+article.page{overflow-x:hidden;flex:6}
 .flex{display:flex}
 h2.page-title{font-size:2rem}
 .postlist{flex:1;min-width:25vw;position:relative}
