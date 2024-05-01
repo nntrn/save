@@ -1,5 +1,5 @@
 # coding: utf-8
-# Generate html pages from _data and _layouts
+# Generate html pages from data in `_data/` and apply layout from `_layouts`
 # Adapted from Adolfo Villafiorita and modified by @nntrn (github.com/nntrn)
 
 module Jekyll
@@ -9,9 +9,9 @@ module Jekyll
         return name.to_s
       end
       return name.tr(
-  "ÀÁÂÃÄÅàáâãäåĀāĂăĄąÇçĆćĈĉĊċČčÐðĎďĐđÈÉÊËèéêëĒēĔĕĖėĘęĚěĜĝĞğĠġĢģĤĥĦħÌÍÎÏìíîïĨĩĪīĬĭĮįİıĴĵĶķĸĹĺĻļĽľĿŀŁłÑñŃńŅņŇňŉŊŋÑñÒÓÔÕÖØòóôõöøŌōŎŏŐőŔŕŖŗŘřŚśŜŝŞşŠšſŢţŤťŦŧÙÚÛÜùúûüŨũŪūŬŭŮůŰűŲųŴŵÝýÿŶŷŸŹźŻżŽž",
-  "AAAAAAaaaaaaAaAaAaCcCcCcCcCcDdDdDdEEEEeeeeEeEeEeEeEeGgGgGgGgHhHhIIIIiiiiIiIiIiIiIiJjKkkLlLlLlLlLlNnNnNnNnnNnNnOOOOOOooooooOoOoOoRrRrRrSsSsSsSssTtTtTtUUUUuuuuUuUuUuUuUuUuWwYyyYyYZzZzZz"
-).downcase.strip.gsub(' ', '-').gsub(/[^\w.-]/, '')
+        "ÀÁÂÃÄÅàáâãäåĀāĂăĄąÇçĆćĈĉĊċČčÐðĎďĐđÈÉÊËèéêëĒēĔĕĖėĘęĚěĜĝĞğĠġĢģĤĥĦħÌÍÎÏìíîïĨĩĪīĬĭĮįİıĴĵĶķĸĹĺĻļĽľĿŀŁłÑñŃńŅņŇňŉŊŋÑñÒÓÔÕÖØòóôõöøŌōŎŏŐőŔŕŖŗŘřŚśŜŝŞşŠšſŢţŤťŦŧÙÚÛÜùúûüŨũŪūŬŭŮůŰűŲųŴŵÝýÿŶŷŸŹźŻżŽž",
+        "AAAAAAaaaaaaAaAaAaCcCcCcCcCcDdDdDdEEEEeeeeEeEeEeEeEeGgGgGgGgHhHhIIIIiiiiIiIiIiIiIiJjKkkLlLlLlLlLlNnNnNnNnnNnNnOOOOOOooooooOoOoOoRrRrRrSsSsSsSssTtTtTtUUUUuuuuUuUuUuUuUuUuWwYyyYyYZzZzZz"
+      ).downcase.strip.gsub(/[\s]+/, '-').gsub(/[-]{1,}/, '-').gsub(/[^a-zA-Z0-9-]+/, '')
     end
   end
 
@@ -47,6 +47,7 @@ module Jekyll
       if @site.layouts[template].path.end_with? 'html'
         @path = @site.layouts[template].path.dup
       else
+        @path = @site.layouts[template].path
         @path = File.join(@site.layouts[template].path, @site.layouts[template].name)
       end
 
@@ -105,7 +106,7 @@ module Jekyll
             records = records.select { |record| record[data_spec['filter']] } if data_spec['filter']
             records = records.select { |record| eval(data_spec['filter_condition']) } if data_spec['filter_condition']
 
-            records.uniq.each do |record|
+            records.each do |record|
               site.pages << DataPage.new(site, site.source, index_files_for_this_data, dir, page_data_prefix, record, name, name_expr, title, title_expr, template, extension, debug)
             end
           end
@@ -114,14 +115,17 @@ module Jekyll
     end
   end
 
-#   module DataPageLinkGenerator
-#     include Sanitizer
-# 
-#     def datapage_url(input, dir)
-#       extension = @context.registers[:site].config['page_gen-dirs'] ? '.pug' : '.html'
-#     end
-#   end
+  module DataPageLinkGenerator
+    include Sanitizer
+
+    def datapage_url(input, dir)
+      extension = @context.registers[:site].config['page_gen-dirs'] ? '/' : '.html'
+      "#{dir}/#{sanitize_filename(input)}#{extension}"
+
+      extension = @context.registers[:site].config['page_gen-dirs'] ? '.md' : '.html'
+    end
+  end
 
 end
 
-# Liquid::Template.register_filter(Jekyll::DataPageLinkGenerator)
+Liquid::Template.register_filter(Jekyll::DataPageLinkGenerator)

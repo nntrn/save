@@ -1,14 +1,16 @@
-<aside class="postlist">
+<aside>
   <h4>POSTS</h4>
+  {%- assign items = site.data.issues | sort: "updated_at" |reverse %}
   <ul>
-    {%- for item in site.data.issues %}
-    <li data-issue="{{item.number}}">
-    {%- if page.number == item.number -%}
-    <strong>{{item.title}}</strong>
-    {%- else -%}
-    <a href="{{item.number| relative_url }}">{{item.title}}</a>
-    {%- endif -%}
-    </li>
-    {%- endfor %}
+  {%- for item in items -%}
+  {%- assign urlpath = item.number %}
+      <li data-issue="{{item.number}}">
+      {%- if page.number == item.number -%}
+      <strong class="curpage">{{item.title}}</strong>
+      {%- else -%}
+      <a href="{{item.number| relative_url }}">{{item.title}}</a>
+      {%- endif -%}
+      </li>
+  {%- endfor %}
   </ul>
 </aside>

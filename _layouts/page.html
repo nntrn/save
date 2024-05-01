@@ -2,11 +2,20 @@
 layout: default
 type: issue
 ---
-{%- assign pagecreated = page.created_at | date_to_string: "ordinal", "US" %}
-{%- assign pagemodified = page.updated_at |  date_to_string: "ordinal", "US" -%}
+
+{%- assign pagecreated = page.created_at | date: "%b%_d %Y" %}
+{%- assign pagemodified = page.updated_at | date: "%b%_d %Y" -%}
 <article class="page">
   <h2 class="page-title">{{page.title}}</h2>
-  <p>Created on <time>{{pagecreated}}</time>.{% if pagemodified != pagecreated %} Last modified on <time>{{pagemodified}}</time>.{%- endif %}</p>
+  <p>Created on <time>{{pagecreated}}</time>&nbsp;
+  {%- if pagemodified != pagecreated -%}and last updated on <time>{{pagemodified}}</time>{%- endif -%}
+  </p>
+  <div class="flex gap">
+    <span>Created: <time>{{pagecreated}}</time></span>
+    {%- if pagemodified != pagecreated -%}
+    <span>Updated: <time>{{pagemodified}}</time>.</span>
+    {%- endif -%}
+  </div>
   <hr>
   <section class="page-content">
     {{ page.body|markdownify }}

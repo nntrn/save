@@ -20,13 +20,11 @@
   <meta property="og:title" content="{{ page.title | default: site.title }}">
   <meta property="og:description" content="{{ page.description | default: site.description }}">
   
-  <style>
-  {% include root.css %}
-  {% include highlight.css %}
-  </style>
-  <style>
-  {% include style.css %}
-  </style>
+  <style>{% include root.css %}</style>
+  <style>{% include highlight.css %}</style>
+  <style>{% include grid.css %}</style>
+  {%comment%}<style>{% include grid.css %}</style>{%endcomment%}
+
 </head>
 <body>
 <div class="container">

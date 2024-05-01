@@ -30,6 +30,5 @@ exclude:
   - Gemfile.lock
   - scripts
   - test
-  - _data
   - .cache
   - .vscode
