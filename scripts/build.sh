@@ -5,7 +5,9 @@
 export GITHUB_TOKEN
 export ISSUES_API_URL='https://api.github.com/repos/nntrn/save/issues?per_page=100&state=open'
 
-GITHUB_TOKEN=${GITHUB_TOKEN:-$GH_TOKEN}
+if [[ -n $GH_TOKEN ]]; then
+  GITHUB_TOKEN=$GH_TOKEN
+fi
 
 _log() { echo -e "\033[0;${2:-33}m$1\033[0m" 3>&2 2>&1 >&3 3>&-; }
 
@@ -56,6 +58,7 @@ build_all() {
   jq -s 'flatten | map(select(.author_association == "OWNER") |
     . + {number: (.issue_url|split("/")|last)}|del(.user,.reactions)
     )' _tmp/comments*.json >_data/comments.json
+  
 }
 
 build_all
