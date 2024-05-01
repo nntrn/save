@@ -17,13 +17,16 @@ type: issue
     {%- endif -%}
   </div>
   <hr>
-  <section class="page-content">
+  {%- if page.comments > 1 or page.body.size > 1000 -%}
+  {% assign columns = 2 %}
+  {%- endif -%}
+  <section class="page-content" style="--columns:{{columns|default: 1}}">
     {{ page.body|markdownify }}
     {%- if page.comments > 0 %}
-    {%- assign comments = site.data.comments[page.number] | sort: "created_at" -%}
+    {%- assign comments = site.data.comments | where: "number",page.number | sort: "created_at" -%}
     {%- for comment in comments %}
       {{ comment.body|markdownify }}
     {%- endfor %}
     {%- endif %}
-  </section>
+  </section>  
 </article>
