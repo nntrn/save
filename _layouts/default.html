@@ -21,25 +21,12 @@
   <meta property="og:description" content="{{ page.description | default: site.description }}">
   
   <style>
-  :root {
-  --px-size: 1rem;
-  --sans-serif: Helvetica Neue, Helvetica, Arial, sans-serif;
-  --h: 190;
-  --s: 73.4%;
-  --l: 54%;
-  --hsl: var(--h), var(--s), var(--l);
-  --accent-color: hsl(var(--h), var(--s), var(--l))
-  }
+  {% include root.css %}
+  {% include highlight.css %}
+  </style>
+  <style>
   {% include style.css %}
   </style>
-  {%- if page.styles.size > 0 %}
-  <style data-type="include-style">
-  {%- for css in page.styles -%}
-  /* {{css}} */
-  {% include {{css}} %}
-  {% endfor %}
-  </style>
-  {%- endif %}
 </head>
 <body>
 <div class="container">
@@ -47,21 +34,12 @@
     <h1 class="site-title"><a href="{{ '/' | relative_url }}">{{site.title}}</a></h1>
     <div class="hidden show-md">Created by <a href="https://github.com/{{site.repository}}">@{{site.github_username}}</a></div>
   </header>
+  {% include sidebar.html -%}
   <main>
   {{ content }}
-  <footer>
-    {% include footer.html -%}
-  </footer>
   </main>
+  {% include footer.html -%}
 </div>
-
-{%- if page.scripts.size > 0 %}
-<script data-type="data">
-{%- for js in page.scripts %}
-/* {{js}} */
-{% include {{js}} %}
-{% endfor %}
-</script>
-{%- endif %}
+{% include scripts.html %}
 </body>
 </html>
