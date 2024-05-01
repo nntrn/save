@@ -25,13 +25,13 @@ cleanup() {
 }
 
 ghcurl() {
-  local URL="${1:-"https://api.github.com/repos/nntrn/save/issues?per_page=100"}"
+  local URL="${1:-"https://api.github.com/repos/nntrn/save/issues?per_page=100&state=open"}"
   curl -L -s -o ${2:-/dev/stdout} -H "Authorization: Bearer $GITHUB_TOKEN" "$URL" --fail
   [[ $? -ne 0 ]] && return 1
 }
 
 download_all_issues() {
-  ghcurl "https://api.github.com/repos/nntrn/save/issues?per_page=100" |
+  ghcurl "https://api.github.com/repos/nntrn/save/issues?per_page=100&state=open" |
     jq 'map(select(.author_association == "OWNER")|del(.reactions,.user)|.number |= tostring)'
 }
 
