@@ -4,6 +4,10 @@ on:
   workflow_dispatch:
   push:
     paths: ["_config.yml", "_layouts/**", "_includes/**"]
+  issue_comment:
+    types: [created, edited, deleted]
+  issues:
+    types: [opened, edited, deleted, closed]
 
 permissions:
   contents: read
@@ -17,6 +21,7 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    if: github.repository_owner == github.triggering_actor
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -28,7 +33,6 @@ jobs:
         with:
           ruby-version: "2.7.1"
           bundler-cache: true
-          cache-version: 0
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v5
