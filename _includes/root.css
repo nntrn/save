@@ -1,0 +1,11 @@
+:root {
+  --px-size: 1rem;
+  --sans-serif: Helvetica Neue, Helvetica, Arial, sans-serif;
+  --h: 190;
+  --s: 73.4%;
+  --l: 54%;
+  --hsl: hsl(var(--h), var(--s), var(--l));
+  --primary-color: hsl(var(--h), var(--s), var(--l));
+  --accent-color: hsl(var(--h), 100%, 70%);
+  --darker-color:hsl(var(--h),100%,20%);
+}

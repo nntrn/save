@@ -1,0 +1,8 @@
+{%- if page.scripts.size > 0 %}
+<script data-type="data">
+{%- for js in page.scripts %}
+/* {{js}} */
+{% include {{js}} %}
+{% endfor %}
+</script>
+{%- endif %}
