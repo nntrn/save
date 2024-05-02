@@ -1,4 +1,4 @@
-name: Trigger issue
+name: Update site
 
 on:
   workflow_dispatch:
@@ -15,29 +15,34 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: read
+      actions: read
+    env:
+      ISSUE_NUM: ${{github.event.issue.number}}
     if: github.repository_owner == github.triggering_actor
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - run: ./scripts/build.sh
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          bundler-cache: true
-      - name: Setup Pages
-        id: pages
-        uses: actions/configure-pages@v5
-      - name: Build with Jekyll
-        run: bundle exec jekyll build
-      - name: Upload _data
-        uses: actions/upload-artifact@v4
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
         with:
           name: page_data
           path: _data
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+      - run: tree _data
+      - run: ./scripts/build2.sh ${{ github.event_name }} ${{ env.ISSUE_NUM }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.2
+          rubygems: latest
+          bundler-cache: true
+      - run: bundle exec jekyll build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: page_data
+          path: _data
+      - uses: actions/upload-pages-artifact@v3
   # Deployment job
   deploy:
     environment:

@@ -3,19 +3,16 @@ layout: default
 type: issue
 ---
 
-{%- assign pagecreated = page.created_at | date: "%b%_d %Y" %}
-{%- assign pagemodified = page.updated_at | date: "%b%_d %Y" -%}
-<article class="page">
+{%- assign pagecreated = page.created_at | date_to_string %}
+{%- assign pagemodified = page.updated_at | date_to_string -%}
+<!-- <article class="page"> -->
   <h2 class="page-title">{{page.title}}</h2>
-  <p>Created on <time>{{pagecreated}}</time>&nbsp;
-  {%- if pagemodified != pagecreated -%}and last updated on <time>{{pagemodified}}</time>{%- endif -%}
-  </p>
-  <div class="flex gap">
-    <span>Created: <time>{{pagecreated}}</time></span>
+  <p class="flex sb muted">
+    <span><strong>Created:</strong> <time>{{pagecreated}}</time></span>
     {%- if pagemodified != pagecreated -%}
-    <span>Updated: <time>{{pagemodified}}</time>.</span>
+    <span><strong>Updated:</strong> <time>{{pagemodified}}</time></span>
     {%- endif -%}
-  </div>
+  </p>
   <hr>
   {%- if page.comments > 1 or page.body.size > 1000 -%}
   {% assign columns = 2 %}
@@ -29,4 +26,4 @@ type: issue
     {%- endfor %}
     {%- endif %}
   </section>  
-</article>
+<!-- </article> -->

@@ -26,7 +26,7 @@ th{color:hsl(var(--h),100%,20%);border-bottom:3px solid currentColor}
 table code{font-family:unset;background:hsla(var(--h),150%,40%,15%);padding:2px 3px}
 label span:empty{display:none}
 ul.list{padding:0 0rem;list-style:none;padding-right:var(--padding)}
-ul{padding:0 1.5rem;padding-right:1.5rem}
+ul{padding:0 1.5rem;padding-right:1.5rem;margin-top:0}
 ul>li{padding:0 .4rem}
 ol{padding-left:0}
 ol li{list-style:none;padding-left:0}
@@ -40,18 +40,20 @@ h1.site-title{font-size:2.5rem}
 h2.page-title{font-size:2rem}
 h1 a{color:var(--body-color);text-decoration-thickness:3px;text-underline-offset:2px}
 header{grid-area:header;padding:.25rem var(--padding)}
-main{grid-area:main;padding:.5rem var(--padding)}
-aside{grid-area:sidebar;padding:var(--padding)/*! background:#eee */}
+main{grid-area:main;padding:0 var(--padding);margin-bottom:1rem}
+aside{grid-area:sidebar;padding:var(--padding);color: var(--hsl);}
 footer{grid-area:footer;background:#222;color:#fff;font-size:.9rem}
 footer p{padding:1.25rem var(--padding)}
-aside a{text-decoration:none}
-aside a:hover{color:var(--primary-color)}
+aside a{text-decoration:none;color: initial;}
+aside a:hover{color:var(--primary-color);}
 aside ul{line-height:1.3;padding:0 var(--padding);padding-bottom:2rem;margin:0 0;position:sticky;top:0}
 code,pre{font-size:.9rem}
-aside ul li{line-height:1;margin-bottom:5px;font-size:.95rem;list-style-type:square}
-aside h4{margin:0 0;margin-bottom:.5rem;border-bottom:2px solid currentColor}
+aside ul li{line-height:1;margin-bottom:5px;list-style-type:square;text-transform:capitalize}
+aside h4{margin:0 0;margin-bottom:.5rem;border-bottom:2px solid currentColor;color:initial}
 .flex{display:flex}
 .gap{gap:var(--gap,.15rem)}
+.sb{justify-content:space-between}
+.muted{color:#aaa}
 .container {
   padding: 0 inherit.5rem;
   display: grid;
@@ -71,7 +73,7 @@ aside h4{margin:0 0;margin-bottom:.5rem;border-bottom:2px solid currentColor}
   aside h4{display:none;margin-bottom:.5rem;padding:.0125rem 0;background:var(--accent-color)}
   aside ul{margin:0 1rem}
   aside strong{color:var(--darker-color)}
-  .container{padding:0 0;display:grid;grid-template-areas:"header  main ." "sidebar main ." "footer  footer footer";grid-template-columns:200px 2fr min(2rem,50px);grid-template-rows:53px auto auto;overflow-x:hidden}
+/*   .container{padding:0 0;display:grid;grid-template-areas:"header  main ." "sidebar main ." "footer  footer footer";grid-template-columns:200px 2fr min(2rem,50px);grid-template-rows:40px 1fr auto 80px;overflow-x:hidden} */
   main{padding-left:2rem}
   footer{background:hsl(var(--h),100%,70%);color:rgba(255,255,255,.85);font-size:.95rem}
   footer p{display:flex;gap:5px}
@@ -84,7 +86,7 @@ aside h4{margin:0 0;margin-bottom:.5rem;border-bottom:2px solid currentColor}
   aside h4{display:block;background:0;padding:0 0}
   .container{grid-template-areas:"header header header" "main main main" "sidebar sidebar sidebar" "footer footer footer";gap:1rem;display:grid}
   main .page-content{column-count:var(--columns);column-gap:3rem}
- 
+  main .page-content > :first-child{margin-top:0;padding-top:0}
+  main{padding-bottom:2rem}
   pre{break-inside:avoid;overflow-x:scroll}
-  ul{break-inside:avoid}
 }

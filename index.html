@@ -3,10 +3,14 @@ layout: default
 title: Home
 ---
 
-{%- assign items = site.data.issues | sort: "updated_at" |reverse %}
-<ul>
+<h3>Pages created from issues</h3>
+
+{%- assign items = site.data.issues | sort: "updated_at" |reverse%}
+
+<table>
 {%- for item in items -%}
 {%- assign urlpath = item.number %}
-  <li data-modified="{{item.updated_at|date:'%F %X'}}"><a href="{{urlpath|relative_url}}">{{item.title}}</a></li>
+<tr><td>{{item.updated_at|date_to_string}}</td><td><a href="{{urlpath|relative_url}}">{{item.title}}</a></td></tr>
 {%- endfor %}
-</ul>
+</table>
+<style>aside{display:none}</style>
