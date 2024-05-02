@@ -3,27 +3,26 @@ layout: default
 type: issue
 ---
 
-{%- assign pagecreated = page.created_at | date_to_string %}
-{%- assign pagemodified = page.updated_at | date_to_string -%}
-<!-- <article class="page"> -->
-  <h2 class="page-title">{{page.title}}</h2>
-  <p class="flex sb muted">
-    <span><strong>Created:</strong> <time>{{pagecreated}}</time></span>
-    {%- if pagemodified != pagecreated -%}
-    <span><strong>Updated:</strong> <time>{{pagemodified}}</time></span>
-    {%- endif -%}
-  </p>
-  <hr>
-  {%- if page.comments > 1 or page.body.size > 1000 -%}
-  {% assign columns = 2 %}
+{%- assign pagecreated = page.created_at | date: '%b %e %Y' %}
+{%- assign pagemodified = page.updated_at | date: '%b %e %Y' -%}
+
+<h2 class="page-title">{{page.title}}</h2>
+<p class="flex sb muted">
+  <span><strong>Created:</strong> <time>{{pagecreated}}</time></span>
+  {%- if pagemodified != pagecreated -%}
+  <span><strong>Updated:</strong> <time>{{pagemodified}}</time></span>
   {%- endif -%}
-  <section class="page-content" style="--columns:{{columns|default: 1}}">
-    {{ page.body|markdownify }}
-    {%- if page.comments > 0 %}
-    {%- assign comments = site.data.comments | where: "number",page.number | sort: "created_at" -%}
-    {%- for comment in comments %}
-      {{ comment.body|markdownify }}
-    {%- endfor %}
-    {%- endif %}
-  </section>  
-<!-- </article> -->
+</p>
+<hr>
+{%- if page.comments > 1 or page.body.size > 1000 -%}
+{% assign columns = 2 %}
+{%- endif -%}
+<section class="page-content" style="--columns:{{columns|default: 1}}">
+  {{ page.body|markdownify }}
+  {%- if page.comments > 0 %}
+  {%- assign comments = site.data.comments | where: "number",page.number | sort: "created_at" -%}
+  {%- for comment in comments %}
+    {{ comment.body|markdownify }}
+  {%- endfor %}
+  {%- endif %}
+</section>  

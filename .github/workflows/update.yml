@@ -2,10 +2,6 @@ name: Update site
 
 on:
   workflow_dispatch:
-  issue_comment:
-    types: [created, edited, deleted]
-  issues:
-    types: [opened, edited, deleted, closed]
 
 permissions:
   contents: read
@@ -25,10 +21,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/download-artifact@v4
+        continue-on-error: true
         with:
           name: page_data
           path: _data
-      - run: tree _data
       - run: ./scripts/build2.sh ${{ github.event_name }} ${{ env.ISSUE_NUM }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
