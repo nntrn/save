@@ -53,8 +53,7 @@ aside h4{margin:0 0;margin-bottom:.5rem;border-bottom:2px solid currentColor;col
 .page-title{font-size:2rem}
 .hidden,[hidden]{display:none}
 .container{display:flex;height:100vh}
-p:has(+.highlighter-rouge){column-span:all;margin-bottom:0}
-.highlighter-rouge{column-span:all}
+p:has(+.highlighter-rouge){margin-bottom:0}
 .flex{display:flex}
 .gap{gap:var(--gap,.15rem)}
 .sb{justify-content:space-between}

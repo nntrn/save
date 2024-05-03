@@ -32,3 +32,4 @@ exclude:
   - test
   - .cache
   - .vscode
+  - _data/.comment
