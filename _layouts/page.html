@@ -1,13 +1,12 @@
 ---
 layout: default
-type: issue
 ---
 
 {%- assign pagecreated = page.created_at | date: '%b %e %Y' %}
 {%- assign pagemodified = page.updated_at | date: '%b %e %Y' -%}
 
 <h2 class="page-title">{{page.title}}</h2>
-<p class="flex sb muted">
+<p class="flex sb muted wrap">
   <span><strong>Created:</strong> <time>{{pagecreated}}</time></span>
   {%- if pagemodified != pagecreated -%}
   <span><strong>Updated:</strong> <time>{{pagemodified}}</time></span>
