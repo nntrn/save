@@ -40,8 +40,8 @@ h1 a{color:var(--body-color);text-decoration-thickness:3px;text-underline-offset
 header{grid-area:header;padding:.25rem var(--padding)}
 main{grid-area:main;padding:0 var(--padding);margin-bottom:1rem}
 aside{grid-area:sidebar;padding:var(--padding);color:var(--hsl)}
-footer{grid-area:footer;color:rgba(255,255,255,.85);font-size:.95rem;background:var(--primary-color)}
-footer a{padding:1px 2px;text-underline-offset:2px;color:hsl(var(--h),100%,30%)}
+footer{grid-area:footer;color:hsl(var(--h),100%,30%);font-size:.95rem;background:var(--primary-color)}
+footer a{padding:1px 2px;text-underline-offset:2px;color:var(--accent-color)}
 footer p{padding:1.25rem var(--padding)}
 aside a{text-decoration:none;color:initial}
 aside a:hover{color:var(--primary-color)}

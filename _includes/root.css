@@ -5,11 +5,11 @@
   --gap: .1rem;
   --padding: 1rem;
   --columns: 1;
-  --h: 330;
-  --s: 73.4%;
-  --l: 54%;
+  --h: 185;
+  --s: 100%;
+  --l: 40%;
   --hsl: hsl(var(--h), var(--s), var(--l));
   --primary-color: hsl(var(--h), var(--s), var(--l));
-  --accent-color: hsl(var(--h), 100%, 70%);
-  --darker-color: hsl(var(--h), 100%, 20%);
+  --accent-color: hsl(var(--h), 90%, 50%);
+  --darker-color: hsl(var(--h), 100%, 25%);
 }

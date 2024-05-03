@@ -16,9 +16,7 @@
   aside ul{margin:0 1rem}
   aside strong{color:var(--darker-color)}
   main{padding-left:2rem}
-  footer{background:hsl(var(--h),100%,70%);color:rgba(255,255,255,.85);font-size:.95rem}
   footer p{display:flex;gap:5px}
-  footer a{padding:1px 2px;text-underline-offset:2px;color:hsl(var(--h),100%,30%)}
 }
 @media (min-width:800px){
   :root{--padding:2rem}
