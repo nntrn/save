@@ -12,4 +12,7 @@
   --primary-color: hsl(var(--h), var(--s), var(--l));
   --accent-color: hsl(var(--h), 90%, 50%);
   --darker-color: hsl(var(--h), 100%, 25%);
+  font-size: 13px;
+  box-sizing: border-box;
+  scrollbar-width: thin;
 }
