@@ -1,6 +1,6 @@
 <aside>
   <h4>POSTS</h4>
-  {%- assign items = site.data.issues | sort: "updated_at" |reverse %}
+  {%- assign items = site.data.issues | sort: "title" %}
   <ul>
   {%- for item in items -%}
   {%- assign urlpath = item.number %}
