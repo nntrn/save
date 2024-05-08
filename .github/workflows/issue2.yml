@@ -1,7 +1,10 @@
-name: Trigger issue
+name: Trigger issue build
 
 on:
-  workflow_dispatch:
+  issue_comment:
+    types: [created, edited, deleted]
+  issues:
+    types: [opened, edited, deleted, closed, reopened]
 
 permissions:
   contents: read
@@ -18,23 +21,19 @@ jobs:
     if: github.repository_owner == github.triggering_actor
     steps:
       - uses: actions/checkout@v4
-      - run: ./scripts/build2.sh issues ${{github.event.issue.number}}
+      - run: ./scripts/build.sh _data
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
+      - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "2.7.1"
+          ruby-version: 3.2
           bundler-cache: true
-      - name: Build with Jekyll
-        run: bundle exec jekyll build
-      - name: Upload _data
-        uses: actions/upload-artifact@v4
+      - run: bundle exec jekyll build
+      - uses: actions/upload-artifact@v4
         with:
           name: page_data
           path: _data
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v3
   # Deployment job
   deploy:
     environment:
