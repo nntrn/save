@@ -6,12 +6,12 @@ layout: default
 {%- assign pagemodified = page.updated_at | date: '%b %e %Y' -%}
 
 <h2 class="page-title">{{page.title}}</h2>
-<p class="flex muted wrap">
-  <span><strong>Created on </strong><time>{{pagecreated}}</time><strong>.&nbsp;</strong></span>
+<div><a class="issue-url" href="{{page.html_url}}">{{page.html_url}}</a></div>
+<p class="flex muted wrap gap">
+  <span><strong>Created on </strong><time>{{pagecreated}}</time>.&nbsp;</span>
   {%- if pagemodified != pagecreated -%}
   <span><strong>Last updated on </strong><time>{{pagemodified}}</time></span>
   {%- endif -%}
-  <span style="flex: 1;text-align:right;"><a href="https://github.com/{{site.repository}}/issues/{{page.number}}">issues/{{page.number}}</a></span>
 </p>
 <hr>
 {%- if page.comments > 1 or page.body.size > 1000 -%}
