@@ -7,14 +7,14 @@ footer p{display:flex;gap:5px}
 .container{--padding:1rem;--padding2:.5rem}
 .container{--padding:0}
 @media (max-width:650px){
-aside ul,header,main section>:not(.highlighter-rouge,blockquote),main>:not(section){width:98%;margin-left:auto;margin-right:auto}
+aside,header,main section>:not(.highlighter-rouge,blockquote),main>:not(section){width:95%;margin-left:auto;margin-right:auto}
 body{overflow-x:hidden}
 .highlighter-rouge{padding-left:0}
 aside ul{column-width:100px;column-gap:20px}
 pre{white-space:pre-wrap!important;overflow-x:hidden;word-break:break-word}
 pre>code{white-space:pre-wrap!important}
 }
-@media (min-width:800px){
+@media (min-width:651px){
 .container{--padding:2rem}
 .container{grid-template-areas:"header header header" "main main main" "sidebar sidebar sidebar" "footer footer footer";gap:1rem;display:grid}
 aside,footer{padding:0 var(--padding)}
