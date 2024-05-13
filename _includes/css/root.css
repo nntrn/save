@@ -1,4 +1,5 @@
 :root {
+  --text-decoration-width:1.5px;
   --px-size: 1rem;
   --sans-serif: Helvetica Neue, Helvetica, Arial, sans-serif;
   --header-size: 50px;
@@ -12,7 +13,8 @@
   --primary-color: hsl(var(--h), var(--s), var(--l));
   --accent: var(--h), 70%, 30%;
   --accent-color: hsla(var(--accent), .4);
-  --darker-color: hsl(var(--h),10%,75%);
+  --darker-color: hsla(var(--h),70%,25%,.5);
+  --lighter-color:hsl(var(--h),10%,94%);
   font-size: 13px;
   box-sizing: border-box;
   scrollbar-width: thin

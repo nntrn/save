@@ -1,6 +1,6 @@
 pre.highlight{padding:1rem;display:block}
-.highlight,pre.highlight{background:#f9f9f9;color:#383942}
-.highlight pre{background:#f9f9f9}
+.highlight,pre.highlight{background:var(--lighter-color);color:#383942}
+.highlight pre{background:var(--lighter-color)}
 .highlight .hll{background:#f9f9f9}
 .highlight .c{color:#9fa0a6;font-style:italic}
 .highlight .err{color:#fff;background-color:#e05151}
