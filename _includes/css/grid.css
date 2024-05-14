@@ -2,12 +2,12 @@ header{grid-area:header}
 main{grid-area:main}
 aside{grid-area:sidebar}
 footer{grid-area:footer}
-.container{display:grid;grid-template-areas:"header header ." "main main ." "sidebar sidebar ." "footer  footer .";grid-template-columns:1fr;grid-template-rows:var(--header-size) 1fr 1fr auto}
+.container{display:grid;grid-template-areas:"header header ." "main main ." "sidebar sidebar ." "footer  footer .";grid-template-columns:1fr;grid-template-rows:var(--header-size) 1fr auto auto}
 footer p{display:flex;gap:5px}
 .container{--padding:1rem;--padding2:.5rem}
 .container{--padding:0}
 @media (max-width:650px){
-aside,header,main section>:not(.highlighter-rouge,blockquote),main>:not(section){width:95%;margin-left:auto;margin-right:auto}
+aside,header,main section>:not(.highlighter-rouge,blockquote),main>:not(section,hr){width:95%;margin-left:auto;margin-right:auto;}
 body{overflow-x:hidden}
 .highlighter-rouge{padding-left:0}
 aside ul{column-width:100px;column-gap:20px}
@@ -23,7 +23,9 @@ aside h4{display:block;background:0;padding:0 0}
 main .page-content{column-count:var(--columns);column-gap:3rem}
 main .page-content>:first-child{margin-top:0;padding-top:0}
 pre{break-inside:avoid;overflow-x:scroll}
+footer{border-top:0}
+footer p{border-top:1px dotted}
 }
 @media (min-width:900px){
-aside ul{column-width:unset;margin:1rem 0;columns:3}
+aside ul{column-width:20vw;margin:1rem 0}
 }

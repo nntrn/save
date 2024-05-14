@@ -2,6 +2,7 @@
   --text-decoration-width:1.5px;
   --px-size: 1rem;
   --sans-serif: Helvetica Neue, Helvetica, Arial, sans-serif;
+  --monospace: : ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
   --header-size: 50px;
   --gap: .1rem;
   --padding: 1rem;

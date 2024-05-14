@@ -24,7 +24,7 @@ pre.highlight{padding:1rem;display:block}
 .highlight .ld{color:#50a04f}
 .highlight .m{color:#b66a00}
 .highlight .s{color:#50a04f}
-.highlight .na{color:#b66a00}
+.highlight .na{color:#5e5b58}
 .highlight .nb{color:#ca7601}
 .highlight .nc{color:#ca7601}
 .highlight .no{color:#ca7601}
@@ -65,3 +65,5 @@ pre.highlight{padding:1rem;display:block}
 .highlight .gi{color:#43d089}
 .highlight .language-json .w+.s2{color:#e35549}
 .highlight .language-json .kc{color:#0083bb}
+pre {background:hsl(var(--h),30%,15%);color:#fff;padding:.6rem}
+pre > .language-jq{color:#fff}
