@@ -10,16 +10,14 @@ layout: default
 </div>
 <div class="page">
   <h2 class="page-title">{{page.title}}</h2>
-  <p>Created on <time>{{pagecreated}}</time>.{% if pagemodified != pagecreated %} Last modified on <time>{{pagemodified}}</time>.{%- endif %}</p>
+  <p>Created on <time>{{pagecreated}}</time>.&nbsp;{% if pagemodified != pagecreated %}Last modified on <time>{{pagemodified}}</time>.{%- endif %}</p>
   <hr>
   <section class="body">
   {{ page.body|markdownify }}
 
   {%- if page.comments > 0 %}
   {%- assign comments = site.data.comments[page.number] | sort: "created_at" -%}
-  {%- for comment in comments %}
-    {{ comment.body|markdownify }}
-  {%- endfor %}
+  {%- for comment in comments %}{{ comment.body|markdownify }}{%- endfor %}
   {%- endif %}
   </section>
 </div>

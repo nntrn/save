@@ -25,19 +25,18 @@
   <meta property="og:description" content="{{ page.description | default: site.description }}">
   
   <style>{% include css/root.css %}</style>
-  <style>{% include css/highlight.css %}</style>
   <style>{% include css/global.css %}</style>
   <style>{% include css/grid.css %}</style>
+  <style>{% include css/highlight.css %}</style>
 </head>
 <body>
 <div class="container">
-  <header>
-    <h1 class="site-title"><a href="{{ '/' | relative_url }}">{{site.title}}</a></h1>
-    <div class="hidden show-md">Created by <a href="https://github.com/{{site.repository}}">@{{site.github_username}}</a></div>
-  </header>
-  <main>{{ content }}</main>
-  {% include sidebar.html -%}
-  {% include footer.html -%}
+<header>
+  <h1 class="site-title"><a href="{{ '/' | relative_url }}">{{site.title}}</a></h1>
+</header>
+<main>{{ content }}</main>
+{% if page.title != 'Home' %}{% include sidebar.html -%}{% endif %}
+{%- include footer.html -%}
 </div>
 {% include scripts.html %}
 </body>
