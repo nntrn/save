@@ -12,13 +12,37 @@
   --l: 40%;
   --hsl: hsl(var(--h), var(--s), var(--l));
   --primary-color: hsl(var(--h), var(--s), var(--l));
-  --accent: var(--h), 70%, 30%;
-  --accent-color: hsla(var(--accent), .4);
+  --accent: var(--h), var(--s), var(--l);
+  --accent-color: hsl(var(--h), var(--s), 30%);
   --darker-color: hsl(var(--h), 30%, 35%);
   --lighter-color: hsl(var(--h), 10%, 94%);
   --faded-color: hsl(var(--h), 20%, 60%);
   --bg-color: hsl(var(--h), 11%, 95%);
+  --light: #fff;
+  --dark: #222;
+  --semi: hsl(var(--h), 70%, 60%);
+  --bright-dark: hsl(var(--h), 100%, 30%);
+  --bg: var(--light);
+  --fg: var(--dark);
+  --border-color: var(--bg-color);
+  --link-color:  var(--semi);
+  --codeblock: hsl(var(--h), 30%, 90%);
   /*   font-size: 14px; */
   box-sizing: border-box;
   scrollbar-width: thin
+}
+
+/* body, */
+[data-layout=dark] {
+  --h: 100;
+  --bg: var(--dark);
+  --fg: var(--light);
+  --bright-dark: hsl(var(--h), 100%, 30%);
+  --border-color: #000;
+  --darker-color: hsl(var(--h), 90%, 35%);
+  --bg-color: hsl(var(--h), 21%, 95%);
+  --accent-color: var(--bright-dark);
+  --faded-color: hsl(var(--h), 50%, 30%);
+  --link-color: hsl(var(--h), 70%, 35%);
+  --codeblock: hsl(var(--h), 20%, 5%);
 }
