@@ -35,8 +35,10 @@
   <h1 class="site-title"><a href="{{ '/' | relative_url }}">{{site.title}}</a></h1>
 </header>
 <main>{{ content }}</main>
-{% if page.title != 'Home' %}{% include sidebar.html -%}{% endif %}
-{%- include footer.html -%}
+{%- if page.title != 'Home' %}
+{% include sidebar.html -%}
+{%- endif %}
+{% include footer.html %}
 </div>
 {% include scripts.html %}
 </body>

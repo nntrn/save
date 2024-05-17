@@ -23,7 +23,7 @@ pre{white-space:pre-wrap!important;overflow-x:hidden;word-break:break-word}
 td{border-bottom:solid 3px var(--bg-color);background:#fff;padding:.5rem 0}
 table{border-collapse:collapse;margin:1.25rem 0;width:100%}
 td,th{text-align:left;padding-left:0}
-th{color:hsl(var(--h),100%,20%);border-bottom:3px solid currentColor}
+th{color:hsl(var(--h),10%,70%);border-bottom:3px solid currentColor}
 table code{font-family:unset;background:hsla(var(--accent),15%);padding:0 3px}
 code,pre{font-size:.9rem}
 pre{overflow-x:scroll}

@@ -6,7 +6,7 @@ footer{grid-area:footer}
 footer p{display:flex;gap:5px}
 .container{--padding:1rem;--padding2:.5rem}
 .container{--padding:0;scrollbar-width:none}
-@media (max-width:650px){
+@media (max-width:700px){
 aside,main section>:not(.highlighter-rouge,blockquote),main>:not(section,hr){width:95%;margin-left:auto;margin-right:auto}
 body{overflow-x:hidden}
 .highlighter-rouge{padding-left:0}
@@ -15,7 +15,7 @@ pre>code{white-space:pre-wrap!important}
 footer p,header a{width:95%;margin-left:auto;margin-right:auto}
 header h1{padding-left:2.5%}
 }
-@media (min-width:651px){
+@media (min-width:700px){
 aside,footer{padding:0 2.5%}
 footer p{padding:1rem 0rem}
 .container{--padding:2rem}
