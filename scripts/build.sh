@@ -4,6 +4,7 @@ set -e
 
 SCRIPT="$(realpath $0)"
 DIR=${SCRIPT%/*/*}
+SDIR=${SCRIPT%/*}
 ISSUES_API_URL='https://api.github.com/repos/nntrn/save/issues?per_page=100&state=open'
 
 JQ_CLEAN_EXPR='map(
@@ -39,17 +40,21 @@ _gh() {
   [[ $? -ne 0 ]] && _exitMsg "An error occured fetching"
 }
 
+_format_body() {
+  cat | jq -L $SDIR 'include "format";format'
+}
+
 _main() {
   OUTDIR=$1
   [[ -d $OUTDIR/.comment ]] && rm -rf $OUTDIR/.comment
   mkdir -p $OUTDIR/.comment
-  _gh "$ISSUES_API_URL" | jq "$JQ_CLEAN_EXPR" >$OUTDIR/issues.json
+  _gh "$ISSUES_API_URL" | jq "$JQ_CLEAN_EXPR" | _format_body >$OUTDIR/issues.json
   check_file $OUTDIR/issues.json
   while read _path _url; do
     _gh "$_url" | jq "$JQ_CLEAN_EXPR" >$OUTDIR/.comment/$_path
     check_file $OUTDIR/.comment/$_path
   done < <(jq -r "$JQ_COMMENTS_EXPR" $OUTDIR/issues.json)
-  jq -s 'flatten' $OUTDIR/.comment/*.json >$OUTDIR/comments.json
+  jq -s 'flatten' $OUTDIR/.comment/*.json | _format_body >$OUTDIR/comments.json
   check_file $OUTDIR/comments.json
   echo '*' >$OUTDIR/.gitignore
 }
