@@ -57,7 +57,7 @@ function populateSearchList() {
   const list = searchResults.querySelector("ul")
   list.innerHTML = ""
   data
-    .filter((e) => e.body.toLowerCase().indexOf(search) > -1)
+    .filter((e) => e.body.indexOf(search) > -1)
     .forEach((el) => {
       const li = document.createElement("li")
       const content = el.body
