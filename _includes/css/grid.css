@@ -13,7 +13,7 @@ body{overflow-x:hidden}
 aside ul{columns:2}
 pre>code{white-space:pre-wrap!important}
 footer p,header a{width:95%;margin-left:auto;margin-right:auto}
-header h1{padding-left:2.5%}
+header{padding:0 2.5%}
 }
 @media (min-width:700px){
 aside,footer{padding:0 2.5%}
