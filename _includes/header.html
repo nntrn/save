@@ -2,5 +2,7 @@
   <div>
     <h1 class="site-title"><a href="{{ '/' | relative_url }}">{{site.title}}</a></h1>
   </div>
-  <div><input type="search"></div>
+  <div>
+    {% include searchlist.html %}
+  </div>
 </header>

@@ -1,8 +1,14 @@
+<script>
+const $ = query => document.querySelector(query)
+const $$ = query => Array.from(document.querySelectorAll(query))
+
+{% include js/search.js %}
+</script>
 {%- if page.scripts.size > 0 %}
 <script data-type="data">
-{%- for js in page.scripts %}
-/* {{js}} */
-{% include {{js}} %}
+{%- for script in page.scripts %}
+/* {{script}} */
+{% include {{script}} %}
 {% endfor %}
 </script>
 {%- endif %}
