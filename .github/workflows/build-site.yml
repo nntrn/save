@@ -1,7 +1,13 @@
-name: Update site
+name: Trigger issue build
 
 on:
-  workflow_dispatch:
+  issue_comment:
+    types: [created, edited, deleted]
+  issues:
+    types: [opened, edited, deleted, closed, reopened]
+  push:
+    paths:
+      - "_includes/**"
 
 permissions:
   contents: read
