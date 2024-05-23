@@ -10,7 +10,7 @@ kramdown:
   smart_quotes: ["apos", "apos", "quot", "quot"]
 
 page_gen:
-  - data: "issues"
+  - data: "posts"
     template: "page"
     index_files: true
     dir: "number"
@@ -33,3 +33,4 @@ exclude:
   - .cache
   - .vscode
   - _data/.comment
+  - _data2

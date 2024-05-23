@@ -48,19 +48,23 @@ _main() {
   OUTDIR=$1
   [[ -d $OUTDIR/.comment ]] && rm -rf $OUTDIR/.comment
   mkdir -p $OUTDIR/.comment
-  _gh "$ISSUES_API_URL" | jq "$JQ_CLEAN_EXPR" | _format_body >$OUTDIR/issues.json
+  echo '*' >$OUTDIR/.gitignore
+
+  _gh "$ISSUES_API_URL" | jq "$JQ_CLEAN_EXPR" >$OUTDIR/issues.json
   check_file $OUTDIR/issues.json
+
   while read _path _url; do
     _gh "$_url" | jq "$JQ_CLEAN_EXPR" >$OUTDIR/.comment/$_path
     check_file $OUTDIR/.comment/$_path
   done < <(jq -r "$JQ_COMMENTS_EXPR" $OUTDIR/issues.json)
-  jq -s 'flatten' $OUTDIR/.comment/*.json | _format_body >$OUTDIR/comments.json
+
+  jq -s 'flatten' $OUTDIR/.comment/*.json >$OUTDIR/comments.json
   check_file $OUTDIR/comments.json
-  echo '*' >$OUTDIR/.gitignore
+
+  $DIR/scripts/createposts.sh >$OUTDIR/posts.json
+  check_file $OUTDIR/posts.json
 }
 
-[[ -n $GH_TOKEN ]] &&
-  GITHUB_TOKEN=$GH_TOKEN
+[[ -n $GH_TOKEN ]] && GITHUB_TOKEN=$GH_TOKEN
 
-# _log "Output: ${DIR/$PWD\//.}/_data"
 _main ${1:-$DIR/_data}

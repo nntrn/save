@@ -1,6 +1,6 @@
 def capture_urls($str):
   "\n\($str)"
-  | [capture("[\\s](?<url>http[^\\s\\)]+)"; "xg")?]
+  | [capture("\n([\\-\\*] )?(?<url>https?:\/\/[^\\s\\)]+)"; "gm")?]
   | to_entries
   | map(select(.value.url|test("\\${{")|not)|[.key,.value.url])
 ;
