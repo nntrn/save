@@ -25,7 +25,7 @@
   --bright-dark: hsl(var(--h), 100%, 30%);
   --bg: var(--light);
   --fg: var(--dark);
-  --border-color: #222;
+  --border-color: var(--bg-color);
   --link-color: var(--semi);
   --strong-color: hsl(var(--h), 30%, 30%);
   --codeblock: hsl(var(--h), 30%, 90%);
