@@ -80,5 +80,4 @@ _main() {
 [[ -n $GH_TOKEN ]] && GITHUB_TOKEN=$GH_TOKEN
 
 req jq
-req bundle
 _main ${1:-$DIR/_data}
