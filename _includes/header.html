@@ -1,7 +1,8 @@
 <header class="flex sb aic">
-  <div>
-    <h1 class="site-title"><a href="{{ '/' | relative_url }}">{{site.title}}</a></h1>
-  </div>
+  <a href="{{ '/' | relative_url }}" class="flex gap">
+    <img src="{{ ''|relative_url}}/assets/favicon.svg"></img>
+    <h1 class="site-title">saved by @nntrn</h1>
+  </a>
   <div>
     {% include searchlist.html %}
   </div>
