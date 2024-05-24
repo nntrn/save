@@ -7,7 +7,7 @@ footer p{display:flex;gap:5px}
 .container{--padding:1rem;--padding2:.5rem}
 .container{--padding:0;scrollbar-width:none}
 @media (max-width:700px){
-aside,main section>:not(.highlighter-rouge),main>:not(section,hr){width:95%;margin-left:auto;margin-right:auto}
+aside,main section>:not(pre,.highlighter-rouge),main>:not(section,hr){width:95%;margin-left:auto;margin-right:auto}
 body{overflow-x:hidden}
 .highlighter-rouge{padding-left:0}
 aside ul{columns:2}
