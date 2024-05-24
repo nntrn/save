@@ -3,21 +3,27 @@ main{grid-area:main}
 aside{grid-area:sidebar}
 footer{grid-area:footer}
 .container{display:grid;grid-template-areas:"header header ." "main main ." "sidebar sidebar ." "footer  footer .";grid-template-columns:1fr;grid-template-rows:var(--header-size) 1fr auto auto}
-footer p{display:flex;gap:5px}
 .container{--padding:1rem;--padding2:.5rem}
 .container{--padding:0;scrollbar-width:none}
+footer{padding-top:1.5rem;padding-bottom:1.85rem;color:hsla(var(--h),70%,15%,1)}
+header .title svg{width:20px;fill:var(--unfocus-color);stroke:var(--darker-color)}
+header .title a{display:flex;flex-direction:column;align-content:flex-start;align-items:flex-start}
+@media (max-width:576px){
+h1.site-title{display:none}
+.search{flex:6;max-width:60vw}
+}
 @media (max-width:700px){
 aside,main section>:not(pre,.highlighter-rouge),main>:not(section,hr){width:95%;margin-left:auto;margin-right:auto}
 body{overflow-x:hidden}
 .highlighter-rouge{padding-left:0}
 aside ul{columns:2}
 pre>code{white-space:pre!important}
-footer p,header a{width:95%;margin-left:auto;margin-right:auto}
+footer>.flex,header a{width:95%;margin-left:auto;margin-right:auto}
 header{padding:0 2.5%}
 }
 @media (min-width:700px){
-aside,footer{padding:0 2.5%}
-footer p{padding:1rem 0rem}
+aside,footer{padding:0 var(--padding)}
+footer>.flex{padding:1rem 0rem}
 .container{--padding:2rem}
 .container{grid-template-areas:"header header header" "main main main" "sidebar sidebar sidebar" "footer footer footer";display:grid}
 aside ul{margin:1rem 0;padding-left:1rem}

@@ -1,6 +1,11 @@
 <footer>
-<p>
-  <span>Created by <a href="https://github.com/{{site.repository}}">@{{site.github_username}}</a>.</span>
-  <span>Copyright {{ site.time | date: '%Y' }}</span>
-</p>
+  <div class="flex sb aic">
+    <div>
+      <span>Created by <a href="https://github.com/{{site.repository}}">@{{site.github_username}}</a>.&nbsp;</span>
+      <span>Copyright {{ site.time | date: '%Y' }}</span>
+    </div>
+    <div>
+      <input id="hue-selector" oninput="setTheme(this.value)" type="number" step="10" min="0" max="360" value="140" maxlength="3" size="4" />
+    </div>
+  </div>
 </footer>

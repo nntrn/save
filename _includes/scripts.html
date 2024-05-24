@@ -1,15 +1,19 @@
 <script src="{{ ''|relative_url}}/assets/vendor/marked.min.js"></script>
+
 <script>
 const $ = query => document.querySelector(query)
 const $$ = query => Array.from(document.querySelectorAll(query))
 
+{% include js/store.js %}
 {% include js/search.js %}
+{% include js/theme.js %}
+
+window.addEventListener("load", function () {
+  searchInput.addEventListener("keyup", populateSearchList)
+
+  if (localStorage.getItem('theme')) {
+    setTheme(localStorage.getItem('theme'))
+  }
+})
+
 </script>
-{%- if page.scripts.size > 0 %}
-<script data-type="data">
-{%- for script in page.scripts %}
-/* {{script}} */
-{% include {{script}} %}
-{% endfor %}
-</script>
-{%- endif %}

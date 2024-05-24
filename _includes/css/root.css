@@ -1,9 +1,9 @@
-:root {
+body {
   --border-width: 2px;
   --px-size: 1rem;
   --sans-serif: Helvetica Neue, Helvetica, Arial, sans-serif;
   --monospace: : ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
-  --header-size: 70px;
+  --header-size: 60px;
   --gap: .1rem;
   --padding: 1rem;
   --columns: 1;
@@ -17,7 +17,7 @@
   --darker-color: hsl(var(--h), 30%, 35%);
   --lighter-color: hsl(var(--h), 10%, 94%);
   --faded-color: hsl(var(--h), 20%, 60%);
-  --bg-color: hsl(var(--h), 11%, 95%);
+  --bg-color: hsl(var(--h), 10%, 95%);
   --light: #fff;
   --dark: #222;
   --bright-raw: var(--h), 70%, 60%;
@@ -27,9 +27,10 @@
   --fg: var(--dark);
   --gray: 217.89, 10.61%, 34.9%;
   --border-color: hsla(var(--gray), 10%);
-  --link-color: var(--semi);
+  --link-color: hsla(var(--h), 90%, 30%, .75);
   --strong-color: hsl(var(--h), 20%, 30%);
   --codeblock: hsl(var(--h), 30%, 90%);
+  --unfocus-color: hsl(var(--h), 30%, 80%);
   box-sizing: border-box;
   scrollbar-width: thin
 }
