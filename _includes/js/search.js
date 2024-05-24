@@ -51,28 +51,40 @@ function escapeHtml(s) {
   })
 }
 
+function cleanResultText(body, search) {
+  const text = body
+    .split(/[\n\r]{1,2}/g)
+    .filter((e) => e.indexOf(search) > -1)
+    .join("\n")
+  const el = Object.assign(document.createElement("div"), { innerHTML: marked.parse(text) })
+  return escapeHtml(el.textContent).replace(search, `<mark>${search}</mark>`)
+}
+
 function populateSearchList() {
   const search = this.value
   const data = dataManager(FETCH_URL)
   const list = searchResults.querySelector("ul")
-  list.innerHTML = ""
-  data
-    .filter((e) => e.body.indexOf(search) > -1)
-    .forEach((el) => {
-      const li = document.createElement("li")
-      const content = el.body
-        .split(/[\n\r]/g)
-        .filter((e) => e.indexOf(search) > -1)
-        .join("\n")
-      li.innerHTML = [
-        //
-        `<a href="{{ '' | relative_url }}/${el.number}">`,
-        `<strong>${el.title}</strong>`,
-        `<p>${escapeHtml(content).replace(search, `<mark>${search}</mark>`)}</p>`,
-        "</a>"
-      ].join("\n")
-      list.appendChild(li)
-    })
+  if (search.length > 0) {
+    searchResults.classList.remove("hidden")
+    list.innerHTML = ""
+    data
+      .filter((e) => e.body.indexOf(search) > -1)
+      .forEach((el) => {
+        list.appendChild(
+          Object.assign(document.createElement("li"), {
+            innerHTML: [
+              `<a href="{{ '' | relative_url }}/${el.number}">`,
+              `<strong>${el.title}</strong>`,
+              `<p>${cleanResultText(el.body, search)}</p>`,
+              "</a>"
+              //
+            ].join("\n")
+          })
+        )
+      })
+  } else {
+    searchResults.classList.add("hidden")
+  }
 }
 
 window.addEventListener("load", function () {
