@@ -67,4 +67,5 @@ pre.highlight{padding:1rem;display:block}
 .highlight .language-json .w+.s2{color:#e35549}
 .highlight .language-json .kc{color:#0083bb}
 pre {background:var(--codeblock);color:var(--darker-color);padding:.6rem;}
+.highlight pre code{font-size:.85rem}
 /* pre > .language-jq{color:var(--light,#fff)} */

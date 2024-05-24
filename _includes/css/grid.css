@@ -11,7 +11,7 @@ aside,main section>:not(.highlighter-rouge),main>:not(section,hr){width:95%;marg
 body{overflow-x:hidden}
 .highlighter-rouge{padding-left:0}
 aside ul{columns:2}
-pre>code{white-space:pre-wrap!important}
+pre>code{white-space:pre!important}
 footer p,header a{width:95%;margin-left:auto;margin-right:auto}
 header{padding:0 2.5%}
 }

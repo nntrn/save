@@ -3,7 +3,7 @@
   --px-size: 1rem;
   --sans-serif: Helvetica Neue, Helvetica, Arial, sans-serif;
   --monospace: : ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
-  --header-size: 50px;
+  --header-size: 70px;
   --gap: .1rem;
   --padding: 1rem;
   --columns: 1;
@@ -25,10 +25,10 @@
   --bright-dark: hsl(var(--h), 100%, 30%);
   --bg: var(--light);
   --fg: var(--dark);
-  --gray: 217.89, 10.61%, 64.9%;
-  --border-color: hsla(var(--gray), 20%);
+  --gray: 217.89, 10.61%, 34.9%;
+  --border-color: hsla(var(--gray), 10%);
   --link-color: var(--semi);
-  --strong-color: hsl(var(--h), 30%, 30%);
+  --strong-color: hsl(var(--h), 20%, 30%);
   --codeblock: hsl(var(--h), 30%, 90%);
   box-sizing: border-box;
   scrollbar-width: thin
