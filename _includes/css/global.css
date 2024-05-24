@@ -47,7 +47,7 @@ li a{text-decoration-thickness:1.5px;text-decoration-style:dotted;text-decoratio
 main a{--accent-color:hsl(var(--accent))}
 footer{border-top:1px dotted}
 footer a{text-underline-offset:2px}
-footer a:hover{--link-color:var(--darker-color);color:#fff}
+footer a:hover{--link-color:var(--fg);background:var(--fg);color:var(--bg)}
 footer p{padding-top:.725rem;padding-bottom:.75rem;display:flex;gap:5px}
 aside{margin:1rem 0}
 aside a{text-decoration:none;padding:0 0;color:hsla(var(--h),50%,10%,1)}
@@ -57,7 +57,7 @@ aside li{line-height:1.2;margin-bottom:5px;list-style-type:square;break-inside:a
 time{font-variant-numeric:proportional-nums;color:var(--accent-color)}
 .site-title{font-size:2.5rem;box-sizing:border-box}
 .page-title{font-size:2rem}
-.hidden,[hidden]{display:none}
+.hidden,[hidden]{display:none!important}
 .aic{align-items:center}
 .container{display:flex;height:100vh}
 p:has(+.highlighter-rouge){margin-bottom:0}
@@ -69,3 +69,5 @@ p:has(+.highlighter-rouge){margin-bottom:0}
 .highlighter-rouge{white-space:pre-wrap}
 .issue-url{text-decoration-style:dotted;text-decoration-color:hsl(var(--accent));display:inline-block;margin-top:.35rem}
 [data-issue]:after{content:" #"attr(data-issue);white-space:pre;color:var(--faded-color)}
+main::selection{background:var(--lighter-color)}
+footer::selection{color:#fff;background-color:var(--accent-color)}
