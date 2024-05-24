@@ -5,7 +5,10 @@ set -e
 SCRIPT="$(realpath $0)"
 DIR=${SCRIPT%/*/*}
 SDIR=${SCRIPT%/*}
-ISSUES_API_URL='https://api.github.com/repos/nntrn/save/issues?per_page=100&state=open'
+
+GITHUB_REPOSITORY=${GITHUB_REPOSITORY:-"nntrn/save"}
+
+ISSUES_API_URL="https://api.github.com/repos/$GITHUB_REPOSITORY/issues?per_page=100&state=open&sort=updated"
 
 JQ_CLEAN_EXPR='map(
   select(.author_association == "OWNER")
@@ -25,6 +28,15 @@ _log() { echo -e "\033[0;${2:-37}m$1\033[0m" 3>&2 2>&1 >&3 3>&-; }
 _exitMsg() { _log "$1" 31 && exit 1; }
 
 check_file() { [[ -f $1 && -s $1 ]] && _log "$LABEL_SUCCESS $1" || _exitMsg "$LABEL_ERROR $1"; }
+
+req() {
+  local program="$1"
+
+  if [[ -z "$(which "$program")" ]]; then
+    echo "$program is required" >&2
+    exit 1
+  fi
+}
 
 _chksum() {
   local YMD,CHKSUM
@@ -67,4 +79,6 @@ _main() {
 
 [[ -n $GH_TOKEN ]] && GITHUB_TOKEN=$GH_TOKEN
 
+req jq
+req bundle
 _main ${1:-$DIR/_data}

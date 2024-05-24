@@ -71,9 +71,9 @@ module Jekyll
     safe true
 
     def generate(site)
-      index_files = site.config['page_gen-dirs'] == true
+      index_files = site.config['from_template-dirs'] == true
 
-      data = site.config['page_gen']
+      data = site.config['from_template']
       if data
         data.each do |data_spec|
           index_files_for_this_data = data_spec['index_files'] != nil ? data_spec['index_files'] : index_files
@@ -119,10 +119,10 @@ module Jekyll
     include Sanitizer
 
     def datapage_url(input, dir)
-      extension = @context.registers[:site].config['page_gen-dirs'] ? '/' : '.html'
+      extension = @context.registers[:site].config['from_template-dirs'] ? '/' : '.html'
       "#{dir}/#{sanitize_filename(input)}#{extension}"
 
-      extension = @context.registers[:site].config['page_gen-dirs'] ? '.md' : '.html'
+      extension = @context.registers[:site].config['from_template-dirs'] ? '.md' : '.html'
     end
   end
 

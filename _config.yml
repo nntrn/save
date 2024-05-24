@@ -1,5 +1,5 @@
-title: save
-description: Blog created using github issues
+title: saved by @nntrn
+description: Update github page from mobile github app using issues
 author: Annie Tran
 url: https://nntrn.github.io
 baseurl: /save
@@ -9,14 +9,11 @@ favicon_ico: /assets/favicon.ico
 kramdown:
   smart_quotes: ["apos", "apos", "quot", "quot"]
 
-page_gen:
+from_template:
   - data: "posts"
     template: "page"
     index_files: true
     dir: "number"
-
-sass:
-  style: compact
 
 compress_html:
   clippings: [div, p, ul, td, h1, h2]
@@ -33,4 +30,3 @@ exclude:
   - .cache
   - .vscode
   - _data/.comment
-  - _data2
