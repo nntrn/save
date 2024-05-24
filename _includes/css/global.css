@@ -43,7 +43,7 @@ h1.site-title a:hover{text-decoration-color:var(--dark);background:0 0;box-shado
 main{padding:0 var(--padding);background:var(--bg,var(--light));padding-top:1rem;padding-bottom:3rem;color:var(--fg,var(--dark))}
 main>section h2:not(:first-child){margin-top:1.5rem}
 main section ul{display:flex;flex-direction:column;gap:.65rem;line-height:1.275}
-li a{text-decoration-thickness:1.5px;text-decoration-style:dotted;text-decoration-color:var(--fg)}
+li a{text-decoration-thickness:1.65px;text-decoration-style:dotted;text-decoration-color:hsla(var(--gray),80%)}
 main a{--accent-color:hsl(var(--accent))}
 footer{border-top:1px dotted}
 footer a{text-underline-offset:2px}
@@ -52,7 +52,7 @@ footer p{padding-top:.725rem;padding-bottom:.75rem;display:flex;gap:5px}
 aside{margin:1rem 0}
 aside a{text-decoration:none;padding:0 0;color:hsla(var(--h),50%,10%,1)}
 aside h4{margin:0 0;margin-bottom:.5rem;border-bottom:0;color:var(--dark)}
-aside ul{column-width:150px;column-gap:20px;margin:1rem 0;margin-inline:calc(1rem / -2.75);color:hsl(var(--h),20%,40%)}
+aside ul{column-width:150px;column-gap:20px;margin:1rem 0;margin-inline:calc(1rem / -2.75);color:hsl(var(--h),50%,40%)}
 aside li{line-height:1.2;margin-bottom:5px;list-style-type:square;break-inside:avoid-column}
 time{font-variant-numeric:proportional-nums;color:var(--accent-color)}
 .site-title{font-size:2.5rem;box-sizing:border-box}
@@ -67,7 +67,7 @@ p:has(+.highlighter-rouge){margin-bottom:0}
 .wrap{flex-wrap:wrap}
 .muted{color:hsl(var(--h),15%,60%)}
 .highlighter-rouge{white-space:pre-wrap}
-.issue-url{text-decoration-style:dotted;text-decoration-color:hsl(var(--accent));display:inline-block;margin-top:.35rem}
+.issue-url{text-decoration-style:dotted;text-decoration-color:hsl(var(--accent));display:inline-block;margin-top:.35rem;text-decoration-thickness:1.65px}
 [data-issue]:after{content:" #"attr(data-issue);white-space:pre;color:var(--faded-color)}
 main::selection{background:var(--lighter-color)}
 footer::selection{color:#fff;background-color:var(--accent-color)}
