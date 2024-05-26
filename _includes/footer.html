@@ -1,11 +1,17 @@
-<footer>
-  <div class="flex sb aic">
+<footer style="--gap:.75rem">
+  <div class="flex sb gap-row flex-sm-column-reverse" style="--gap:1.25rem">
     <div>
       <span>Created by <a href="https://github.com/{{site.repository}}">@{{site.github_username}}</a>.&nbsp;</span>
       <span>Copyright {{ site.time | date: '%Y' }}</span>
     </div>
-    <div>
-      <input id="hue-selector" oninput="setTheme(this.value)" type="number" step="10" min="0" max="360" value="140" maxlength="3" size="4" />
-    </div>
+    <form>
+      <div class="flex flex-lg-column gap-col" style="--gap:.75rem">
+        <label for="hue-range">Theme color</label>
+        <div class="flex gap" style="--gap:.5rem">
+          <input id="hue-range" class="form-range" oninput="setTheme(this.value)" type="range"  min="0" max="360" value="140" list="tickmarks" />
+          <input id="hue-input" type="number" oninput="setTheme(this.value)" maxlength="3" size="4" min="0" max="360" value="140" step="10" />
+        </div>
+      </div>
+    </form>
   </div>
 </footer>

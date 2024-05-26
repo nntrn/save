@@ -10,10 +10,14 @@ header .title svg{width:20px;fill:var(--unfocus-color);stroke:var(--darker-color
 header .title a{display:flex;flex-direction:column;align-content:flex-start;align-items:flex-start;gap:.15rem}
 h1.site-title{font-size:.9rem;width:100%;white-space:pre}
 @media (max-width:576px){
+footer{--gap:1rem}
 html{font-size:13px}
 body{font-size:inherit}
 h1.site-title{display:none}
-.search{flex:6;max-width:60vw}
+.wrap{flex-direction:column}
+.gap-sm{gap:var(--gap)}
+.flex-sm-column-reverse{flex-direction:column-reverse}
+header .search{max-width:unset; width:70%}
 }
 @media (max-width:700px){
 aside,main section>:not(pre,.highlighter-rouge),main>:not(section,hr){width:95%;margin-left:auto;margin-right:auto}
@@ -25,9 +29,9 @@ footer>.flex,header a{width:95%;margin-left:auto;margin-right:auto}
 header{padding:0 2.5%}
 }
 @media (min-width:700px){
-header .title a{display:flex;flex-direction:row;gap:.35rem;align-items:center}
+header .title a{display:flex}
 aside,footer{padding:0 var(--padding)}
-footer>.flex{padding:1rem 0rem}
+footer>.flex{padding:1rem 0rem;align-items:center}
 .container{--padding:2rem}
 .container{grid-template-areas:"header header header" "main main main" "sidebar sidebar sidebar" "footer footer footer";display:grid}
 aside ul{margin:1rem 0;padding-left:1rem}
@@ -36,7 +40,9 @@ main .page-content{column-count:var(--columns);column-gap:3rem}
 main .page-content>:first-child{margin-top:0;padding-top:0}
 pre{break-inside:avoid;overflow-x:scroll;break-before:avoid}
 footer{border-top:1px dotted}
+.flex-lg-column{flex-direction:column}
 }
 @media (min-width:900px){
 aside ul{column-width:20vw;margin:1rem 0}
+.form-range{min-width:200px}
 }
