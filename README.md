@@ -1,12 +1,10 @@
 # things i save on my phone
 
-Create and update [blog] post using a project's [issues]! This project uses 
-the magic that is Github Actions and Github Pages/Jekyll to create and
-update a personal website from the Github app on your mobile phone!  
+Create and update [blog] post when [issues] are created/updated! 
 
-I use this project as a dumping ground for my thoughts and ideas and things to remember.
+This project uses the magic that is Github Actions and Jekyll so I can update [nntrn.github.io/save][blog] from my phone using the Github app.
 
-## build your own
+## Build your own
 
 Requires [jq] and [bundler]
 
@@ -29,7 +27,10 @@ bundle install
 bundle exec jekyll serve
 ```
 
-Setting to create page content from [json] using [datapage.rb]:
+### Generate output from json
+
+With the plugin [datapage.rb], setting the variable `from_template`, in **_config.yml** 
+will generate post and page content in `_site`.
 
 ```yml
 # _config.yml
