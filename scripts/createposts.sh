@@ -3,19 +3,7 @@
 SCRIPT="$(realpath $0)"
 DIR=${SCRIPT%/*/*}
 
-JQ_EXPR_POSTS='
-def format_search_body($str): 
-  $str|gsub("\r";"")|split("\n")
-  | map(
-    select(test("```")|not)  
-    | gsub("^[\\#]{1,5}\\s";"";"x") 
-    | gsub("`";"")
-    | gsub("\\*";"")
-    |gsub("\\[(?<title>[^\\]]+)\\]\\(http[^\\)]+\\)";.title;"x")
-    | select(test("[a-zA-Z0-9]"))  
-  )
-;
-
+JQ_EXPR_POSTS='include "format";
 [$issues,$comments]
 | flatten
 | sort_by(.created_at)
@@ -34,7 +22,7 @@ def format_search_body($str):
   }
 )'
 
-jq -n \
+jq -n -L $DIR/scripts \
   --slurpfile issues $DIR/_data/issues.json \
   --slurpfile comments $DIR/_data/comments.json \
   "$JQ_EXPR_POSTS" |
