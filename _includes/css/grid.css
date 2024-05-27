@@ -5,10 +5,6 @@ footer{grid-area:footer}
 .container{display:grid;grid-template-areas:"header header ." "main main ." "sidebar sidebar ." "footer  footer .";grid-template-columns:1fr;grid-template-rows:var(--header-size) 1fr auto auto}
 .container{--padding:1rem;--padding2:.5rem}
 .container{--padding:0;scrollbar-width:none}
-footer{padding-top:1.5rem;padding-bottom:1.85rem;color:hsla(var(--h),70%,15%,1)}
-header .title svg{width:20px;fill:var(--unfocus-color);stroke:var(--darker-color)}
-header .title a{display:flex;flex-direction:column;align-content:flex-start;align-items:flex-start;gap:.15rem}
-h1.site-title{font-size:.9rem;width:100%;white-space:pre}
 @media (max-width:576px){
 footer{--gap:1rem}
 html{font-size:13px}
@@ -17,7 +13,7 @@ h1.site-title{display:none}
 .wrap{flex-direction:column}
 .gap-sm{gap:var(--gap)}
 .flex-sm-column-reverse{flex-direction:column-reverse}
-header .search{max-width:unset; width:70%}
+header .search{max-width:unset;width:70%}
 }
 @media (max-width:700px){
 aside,main section>:not(pre,.highlighter-rouge),main>:not(section,hr){width:95%;margin-left:auto;margin-right:auto}

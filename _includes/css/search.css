@@ -29,5 +29,5 @@ input::placeholder{color:var(--faded-color)}
 .form-range::-moz-range-track{width:100%;height:.45rem;color:transparent;cursor:pointer;background-color:var(--unfocus-color);border-color:transparent;border-radius:1rem}
 form{font-size:.9rem}
 form label{font-size:inherit}
-#hue-input{background:0;border:0;color:var(--faded-color);font-size:inherit;appearance:none;outline:0}
-#hue-input:focus,#hue-input:hover{background:var(--bg);box-shadow:0 0 0 1px var(--accent-color),0 0 0 .25rem hsla(var(--h),30%,50%,.2)}
+#hue-input{background:0;border:0;color:hsla(var(--gray),.7);font-size:inherit;appearance:none;outline:0}
+#hue-input:focus,#hue-input:hover{color:hsla(var(--h),30%,50%,.8)}
