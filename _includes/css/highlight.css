@@ -54,7 +54,6 @@ pre.highlight{padding:1rem;display:block}
 .highlight .si{color:#50a04f}
 .highlight .sx{color:#50a04f}
 .highlight .sr{color:#0083bb}
-/* .highlight .s1{color:#067405;} */
 .highlight .ss{color:#0083bb}
 .highlight .bp{color:#ca7601}
 .highlight .vc{color:#ca7601}
@@ -66,6 +65,5 @@ pre.highlight{padding:1rem;display:block}
 .highlight .gi{color:#43d089}
 .highlight .language-json .w+.s2{color:#e35549}
 .highlight .language-json .kc{color:#0083bb}
-pre {background:var(--codeblock);color:var(--darker-color);padding:.6rem;}
-pre > code{font-size:.85rem}
-/* pre > .language-jq{color:var(--light,#fff)} */
+pre{background:var(--codeblock);color:var(--darker-color);padding:1rem}
+pre>code{font-size:.85rem}

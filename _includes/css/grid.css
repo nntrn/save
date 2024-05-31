@@ -26,7 +26,7 @@ header{padding:0 2.5%}
 }
 @media (min-width:700px){
 header .title a{display:flex}
-aside,footer{padding:0 var(--padding)}
+aside,footer{padding-left:var(--padding);padding-right:var(--padding)}
 footer>.flex{padding:1rem 0rem;align-items:center}
 .container{--padding:2rem}
 .container{grid-template-areas:"header header header" "main main main" "sidebar sidebar sidebar" "footer footer footer";display:grid}
