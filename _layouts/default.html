@@ -20,11 +20,16 @@
   <meta property="og:url" content="{{ page.url | absolute_url }}">
   <meta property="og:title" content="{{ page.title | default: site.title }}">
   <meta property="og:description" content="{{ page.description | default: site.description }}">
-
+  <style>
+  body{
+    --h: {{site.theme_hue|default: 140 }};
+    --s: {{site.theme_saturation|default: '70%' }};
+    --l: {{site.theme_luminance|default: '40%' }};
+  }
+  </style>
   <style>{% include css/root.css %}</style>
   <style>{% include css/global.css %}</style>
   <style>{% include css/search.css %}</style> 
-  <style>{% include css/grid.css %}</style>
   <style>{% include css/highlight.css %}</style>
 </head>
 <body>
