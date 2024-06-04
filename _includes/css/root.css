@@ -1,5 +1,5 @@
 body {
-  --border-width: 2px;
+  --border-width: 1.5px;
   --px-size: 1rem;
   --sans-serif: Helvetica Neue, Helvetica, Arial, sans-serif;
   --monospace: : ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
@@ -11,13 +11,14 @@ body {
   --primary-color: hsl(var(--h), var(--s), var(--l));
   --accent: var(--h), 90%, 30%;
   --accent-color: hsl(var(--h), var(--s), 30%);
-  --darker-color: hsl(var(--h), 40%, 25%);
+  --darker-color: hsl(var(--h), 30%, 20%);
+  /* --darker-color: hsl(var(--h), 40%, 25%); */
   --lighter-color: hsl(var(--h), 10%, 94%);
   --faded-color: hsl(var(--h), 20%, 60%);
   --bg-color: hsl(var(--h), 10%, 95%);
   --light: #fff;
   --dark: #222;
-  --bright-raw: var(--h), 70%, 50%;
+  --bright-raw: var(--h), 50%, 50%;
   --semi: hsl(var(--bright-raw));
   --bright-dark: hsl(var(--h), 100%, 30%);
   --bg: var(--light);
@@ -25,10 +26,10 @@ body {
   --gray: 217.89, 10.61%, 34.9%;
   --border-color: hsla(var(--gray), 20%);
   --link-color: hsla(var(--h), 90%, 30%, .75);
-  --strong-color: hsl(var(--h), 90%, 15%);
+  --strong-color: hsl(var(--h), 60%, 30%);
   --codeblock: hsl(var(--h), 30%, 90%);
   --unfocus: var(--h), var(--s), 20%;
-  --unfocus-color: hsla(var(--unfocus),.5);
+  --unfocus-color: hsla(var(--unfocus), .5);
   box-sizing: border-box;
   scrollbar-width: thin
 }
