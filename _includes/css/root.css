@@ -12,7 +12,6 @@ body {
   --accent: var(--h), 90%, 30%;
   --accent-color: hsl(var(--h), var(--s), 30%);
   --darker-color: hsl(var(--h), 30%, 20%);
-  /* --darker-color: hsl(var(--h), 40%, 25%); */
   --lighter-color: hsl(var(--h), 10%, 94%);
   --faded-color: hsl(var(--h), 20%, 60%);
   --bg-color: hsl(var(--h), 10%, 95%);
@@ -34,6 +33,16 @@ body {
   scrollbar-width: thin
 }
 
+#theme-color {
+  --s: 50%;
+  --l: 60%;
+  --hue-color-space: hsl(0 var(--s) var(--l)), hsl(60 var(--s) var(--l)), hsl(120 var(--s) var(--l)), hsl(180 var(--s) var(--l)), hsl(240 var(--s) var(--l)), hsl(300 var(--s) var(--l)), hsl(360 var(--s) var(--l));
+  --hue-color-space-bg: linear-gradient(to right, var(--hue-color-space));
+  --hue-shadow: 0 0 0 1px hsla(var(--h),var(--s),30%,.7),0 0 0 .3rem hsla(var(--h),30%,var(--l),.5);
+  --thumb-size:.8rem;
+}
+
+/* TODO: dark theme */
 /* body, */
 [data-layout=dark] {
   --accent: var(--h), 10%, 40%;
