@@ -24,7 +24,8 @@ jobs:
     if: github.repository_owner == github.triggering_actor
     steps:
       - uses: actions/checkout@v4
-          ref: ${{vars.BUILD_REF || env.GITHUB_REF_NAME}}
+        with:
+          ref: ${{ vars.BUILD_REF || env.GITHUB_REF_NAME }}
       - run: ./scripts/build.sh _data
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
