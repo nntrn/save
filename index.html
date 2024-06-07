@@ -4,11 +4,19 @@ title: Home
 ---
 {%- assign items = site.data.issues | sort: "updated_at" |reverse %}
 
-<h3>Pages created from issues</h3>
+<h1>hello!</h1>
+<div style="line-height:1.5">
+This blog uses Github Issues to create and update content on this site! 
+<br>
+<strong>Check it out:</strong> 
+<a class="dotted" href="https://github.com/{{site.repository}}/issues">https://github.com/{{site.repository}}/issues</a>
+</div>
+<hr>
 <table>
 {%- for item in items -%}
 {%- assign urlpath = item.number %}
   <tr>
+    <td><strong><a href="{{item.html_url}}">#{{item.number}}</a>.</strong></td>
     <td><a href="{{urlpath|relative_url}}">{{item.title}}</a></td>
     <td style="text-align:right"><time date="{{item.updated_at|date: '%F'}}">{{item.updated_at|date: '%c'}}</td>
   </tr>

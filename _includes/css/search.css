@@ -1,33 +1,15 @@
 .search{--hover-color:hsl(var(--h), 30%, 70%);position:relative;width:100%;max-width:300px}
-#search-input:focus{color:hsla(var(--h),var(--s),25%,60%);background-color:0;border-color:var(--hover-color);outline:0;box-shadow:0 0 0 .2725rem hsla(var(--h),var(--s),30%,0%)}
+#search-input:focus{color:hsla(var(--h),var(--s),25%,60%);background-color:0;border-color:var(--strong-color);outline:0;box-shadow:0 0 0 .2725rem hsla(var(--h),var(--s),30%,0%)}
 #search-input:focus~#search-results{display:block;background:0 0;width:100%}
 #search-results ul{display:flex;flex-direction:column;margin:0;padding:0}
-#search-results{box-shadow:0 .5rem 1rem rgba(0,0,0,.15)}
-#search-results{width:calc(100% - 10px);display:none;position:absolute;z-index:0;max-height:70vh;overflow-y:scroll;font-size:.9rem}
+#search-results{box-shadow:0 .5rem 1rem rgba(0,0,0,.15);width:calc(100% - 10px);display:none;position:absolute;z-index:0;max-height:70vh;overflow-y:scroll;font-size:.9rem}
 #search-results:hover{display:block}
-#search-results li{display:block;margin:0;padding:0;border:1px solid #fff;border-bottom-color:hsla(var(--h),var(--s),30%,20%);border-top-color:hsla(var(--h),var(--s),30%,20%)}
-#search-results li:hover{border-color:var(--faded-color)}
-#search-input{z-index:10000}
-#search-input{font-size:1rem;z-index:1000;width:100%;border-radius:0;border:0;border-bottom:3px solid hsla(var(--h),var(--s),30%,20%);padding:3px .125rem;color:var(--unfocus-color);background:0 0;font-family:var(--sans-serif);padding-left:1.5rem}
+#search-results li{display:block;margin:0;padding:0;border-bottom:1px solid hsla(var(--unfocus),.4)}
+#search-input{font-size:1.2rem;z-index:1000;width:100%;border-radius:0;border:0;border-bottom:3px solid hsla(var(--unfocus),.4);padding:.25rem .125rem;color:var(--unfocus-color);background:0 0;font-family:var(--sans-serif);padding-left:1.7rem}
 .search-results-list a{background:var(--bg);display:block;padding:.5rem;text-decoration:none;width:100%}
 .search-results-list a:hover{background:hsl(var(--h),30%,90%)}
 .search-results-list p{font-size:.8rem;line-height:1.2;display:-webkit-box!important;-webkit-line-clamp:var(--clamp-lines,2);-webkit-box-orient:vertical;overflow:hidden;text-overflow:ellipsis}
-.search-results-list strong{color:hsl(var(--h),90%,20%)}
 input::placeholder{color:var(--faded-color)}
 #search-icon{position:absolute;left:0;z-index:-1;display:flex;align-items:center;height:100%}
-#search-icon svg{width:14px;height:14px;stroke:var(--faded-color);stroke-width:2px}
-.form-range{width:100%;padding:0;background-color:transparent;-webkit-appearance:none;-moz-appearance:none;appearance:none;margin:0 0}
-.form-range:focus{outline:0}
-.form-range:focus::-webkit-slider-thumb{box-shadow:0 0 0 1px #fff,0 0 0 .2rem rgba(255,255,255,.5),0 0 0 .6rem rgba(0,0,0,.5)}
-.form-range:focus::-moz-range-thumb{box-shadow:0 0 0 1px var(--accent-color),0 0 0 .3rem hsla(var(--h),30%,50%,.3)}
-.form-range::-moz-focus-outer{border:0}
-.form-range::-webkit-slider-thumb{width:.8rem;height:.8rem;margin-top:-.25rem;background-color:#0d6efd;border:0;border-radius:1rem;-webkit-transition:background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;transition:background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;-webkit-appearance:none;appearance:none}
-.form-range::-webkit-slider-thumb:active{background-color:#b6d4fe}
-.form-range::-webkit-slider-runnable-track{width:100%;height:.45rem;color:transparent;cursor:pointer;background-color:#dee2e6;border-color:transparent;border-radius:1rem}
-.form-range::-moz-range-thumb{width:.8rem;height:.8rem;background-color:var(--strong-color);border:0;border-radius:1rem;-moz-transition:background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;transition:background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;-moz-appearance:none;appearance:none}
-.search:hover #search-input{color:hsla(var(--h),var(--s),25%,80%)}
-.form-range::-moz-range-track{width:100%;height:.45rem;color:transparent;cursor:pointer;background-color:var(--unfocus-color);border-color:transparent;border-radius:1rem}
-form{font-size:.9rem}
-form label{font-size:inherit}
-#hue-input{background:0;border:0;color:hsla(var(--gray),.7);font-size:inherit;appearance:none;outline:0}
-#hue-input:focus,#hue-input:hover{color:hsla(var(--h),30%,50%,.8)}
+#search-icon svg{width:14px;height:14px;stroke:hsla(var(--unfocus),.5);stroke-width:2px}
+.search:hover #search-input{color:hsl(var(--h),75%,20%)}

@@ -1,5 +1,5 @@
 body {
-  --border-width: 2px;
+  --border-width: 1.5px;
   --px-size: 1rem;
   --sans-serif: Helvetica Neue, Helvetica, Arial, sans-serif;
   --monospace: : ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
@@ -7,46 +7,56 @@ body {
   --gap: .1rem;
   --padding: 1rem;
   --columns: 1;
-  --h: 140;
-  --s: 70%;
-  --l: 40%;
   --hsl: hsl(var(--h), var(--s), var(--l));
   --primary-color: hsl(var(--h), var(--s), var(--l));
-  --accent: var(--h), var(--s), var(--l);
+  --accent: var(--h), 90%, 30%;
   --accent-color: hsl(var(--h), var(--s), 30%);
-  --darker-color: hsl(var(--h), 30%, 35%);
+  --darker-color: hsl(var(--h), 30%, 20%);
   --lighter-color: hsl(var(--h), 10%, 94%);
   --faded-color: hsl(var(--h), 20%, 60%);
   --bg-color: hsl(var(--h), 10%, 95%);
   --light: #fff;
   --dark: #222;
-  --bright-raw: var(--h), 70%, 60%;
+  --bright-raw: var(--h), 50%, 50%;
   --semi: hsl(var(--bright-raw));
   --bright-dark: hsl(var(--h), 100%, 30%);
   --bg: var(--light);
   --fg: var(--dark);
   --gray: 217.89, 10.61%, 34.9%;
-  --border-color: hsla(var(--gray), 10%);
+  --border-color: hsla(var(--gray), 20%);
   --link-color: hsla(var(--h), 90%, 30%, .75);
-  --strong-color: hsl(var(--h), 20%, 30%);
+  --strong-color: hsl(var(--h), 60%, 30%);
   --codeblock: hsl(var(--h), 30%, 90%);
-  --unfocus-color: hsl(var(--h), 30%, 80%);
+  --unfocus: var(--h), var(--s), 20%;
+  --unfocus-color: hsla(var(--unfocus), .5);
   box-sizing: border-box;
   scrollbar-width: thin
 }
 
+#theme-color {
+  --s: 50%;
+  --l: 60%;
+  --hue-color-space: hsl(0 var(--s) var(--l)), hsl(60 var(--s) var(--l)), hsl(120 var(--s) var(--l)), hsl(180 var(--s) var(--l)), hsl(240 var(--s) var(--l)), hsl(300 var(--s) var(--l)), hsl(360 var(--s) var(--l));
+  --hue-color-space-bg: linear-gradient(to right, var(--hue-color-space));
+  --hue-shadow: 0 0 0 1px hsla(var(--h),var(--s),30%,.7),0 0 0 .3rem hsla(var(--h),30%,var(--l),.5);
+  --thumb-size:.8rem;
+}
+
+/* TODO: dark theme */
 /* body, */
 [data-layout=dark] {
   --accent: var(--h), 10%, 40%;
+  --accent-color: hsl(var(--h), 100%, 90%);
   --bg: hsl(var(--h), 21%, 14%);
   --fg: var(--light);
   --bright-dark: hsl(var(--h), 100%, 30%);
   --border-color: hsl(var(--h), 100%, 30%);
-  --darker-color: hsl(var(--h), 90%, 35%);
-  --bg-color: hsl(var(--h), 21%, 95%);
-  --accent-color: var(--bright-dark);
+  --darker-color: hsl(var(--h), 30%, 60%);
+  --bg-color: hsl(var(--h), 30%, 5%);
+  --accent-color: hsl(var(--h), 100%, 50%);
   --faded-color: hsl(var(--h), 50%, 30%);
   --link-color: hsl(var(--h), 70%, 35%);
   --codeblock: hsl(var(--h), 20%, 5%);
-  --strong-color: hsl(var(--h), 60%, 30%)
+  --strong-color: hsl(var(--h), 60%, 70%);
+  --gray: var(--h), 90%, 90%;
 }
