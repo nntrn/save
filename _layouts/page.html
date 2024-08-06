@@ -1,0 +1,20 @@
+---
+layout: default
+---
+
+{%- assign pagecreated = page.created_at | date: '%b %e %Y' -%}
+{%- assign pagemodified = page.updated_at | date: '%b %e %Y' %}
+
+<h2 class="page-title">{{page.title}}</h2>
+<div><a class="issue-url" href="{{page.html_url}}">{{page.html_url}}</a></div>
+<p class="flex muted wrap gap">
+  <span><strong>Created on </strong><time>{{pagecreated}}</time>.&nbsp;</span>
+  {%- if pagemodified != pagecreated -%}
+  <span><strong>Last updated on </strong><time>{{pagemodified}}</time></span>
+  {%- endif -%}
+</p>
+<hr>
+{%- if page.body.size > 1000 %}{%- assign columns = 2 %}{%- endif %}
+<section class="page-content columns-{{columns}}" style="--columns:{{columns|default: 1}}" data-size="{{page.body.size}}">
+{{ page.body|markdownify }}
+</section>  

@@ -1,0 +1,20 @@
+{
+  "[html]": {
+    // "editor.defaultFormatter": "vscode.css-language-features",
+    "editor.formatOnSave": false
+  },
+  "[css]": {
+    "editor.defaultFormatter": "vscode.css-language-features",
+    "editor.formatOnSave": false
+  },
+  "html.format.indentHandlebars": true,
+  "[handlebars]": {
+    "editor.detectIndentation": true
+    // "editor.suggest.insertMode": "replace"
+  },
+
+  "liquid.engine": "jekyll",
+  "liquid.format.enable": true,
+  "liquid.format.commentIndent": true,
+  "liquid.validate.schema": false
+}

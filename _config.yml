@@ -1,0 +1,33 @@
+title: saved by @nntrn
+description: Update github page from mobile github app using issues
+author: Annie Tran
+url: https://nntrn.github.io
+baseurl: /save
+repository: nntrn/save
+github_username: nntrn
+favicon_ico: /assets/favicon.ico
+theme_hue: 247
+kramdown:
+  smart_quotes: ["apos", "apos", "quot", "quot"]
+
+from_template:
+  - data: "posts"
+    template: "page"
+    index_files: true
+    dir: "number"
+
+compress_html:
+  clippings: [div, p, ul, td, h1, h2]
+  endings: all
+  comments: ["<!--", "-->"]
+  startings: []
+  blanklines: true
+  profile: false
+
+exclude:
+  - Gemfile.lock
+  - scripts
+  - test
+  - .cache
+  - .vscode
+  - _data/.comment
