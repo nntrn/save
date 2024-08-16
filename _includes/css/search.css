@@ -1,5 +1,5 @@
 .search{--hover-color:hsl(var(--h), 30%, 70%);position:relative;width:100%;max-width:300px}
-#search-input:focus{color:hsla(var(--h),var(--s),25%,60%);background-color:0;border-color:var(--strong-color);outline:0;box-shadow:0 0 0 .2725rem hsla(var(--h),var(--s),30%,0%)}
+#search-input:focus{filter:brightness(1.5);background-color:0;border-color:var(--strong-color);outline:0;box-shadow:0 0 0 .2725rem hsla(var(--h),var(--s),30%,0%)}
 #search-input:focus~#search-results{display:block;background:0 0;width:100%}
 #search-results ul{display:flex;flex-direction:column;margin:0;padding:0}
 #search-results{box-shadow:0 .5rem 1rem rgba(0,0,0,.15);width:calc(100% - 10px);display:none;position:absolute;z-index:0;max-height:70vh;overflow-y:scroll;font-size:.9rem}

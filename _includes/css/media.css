@@ -26,7 +26,6 @@ aside h4{display:block;background:0;padding:0 0}
 main .page-content{column-count:var(--columns);column-gap:calc(8vw - 1rem)}
 main .page-content>:first-child{margin-top:0;padding-top:0}
 pre{break-inside:avoid;overflow-x:scroll;break-before:avoid}
-footer{border-top:1px dotted}
 .flex-lg-column{flex-direction:column}
 }
 @media (min-width:900px){

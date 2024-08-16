@@ -7,6 +7,7 @@ body {
   --gap: .1rem;
   --padding: 1rem;
   --columns: 1;
+  --link-thickness: 1.5px;
   --hsl: hsl(var(--h), var(--s), var(--l));
   --primary-color: hsl(var(--h), var(--s), var(--l));
   --accent: var(--h), 90%, 30%;
