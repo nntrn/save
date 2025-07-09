@@ -6,7 +6,7 @@ baseurl: /save
 repository: nntrn/save
 github_username: nntrn
 favicon_ico: /assets/favicon.ico
-theme_hue: 247
+theme_hue: 180
 kramdown:
   smart_quotes: ["apos", "apos", "quot", "quot"]
 
