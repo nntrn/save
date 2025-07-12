@@ -15,9 +15,9 @@ Content for this site is generated from issues created and updated by me.
 {%- for item in items -%}
 {%- assign urlpath = item.number %}
   <tr>
-    <td><strong><a href="{{item.html_url}}">#{{item.number}}</a>.</strong></td>
-    <td><a href="{{urlpath|relative_url}}">{{item.title}}</a></td>
-    <td style="text-align:right"><time date="{{item.updated_at|date: '%F'}}">{{item.updated_at|date: '%c'}}</td>
+    <td><a class="redirect" href="{{item.html_url}}">#{{item.number}}.</a></td>
+    <td class="posturl"><a href="{{urlpath|relative_url}}">{{item.title}}</a></td>
+    <td class="timestamp"><time date="{{item.updated_at|date: '%F'}}">{{item.updated_at|date: '%c'}}</td>
   </tr>
 {%- endfor %}
 </table>

@@ -19,7 +19,7 @@ body {
   --hsl: hsl(var(--h), var(--s), var(--l));
   --primary-color: hsl(var(--h), var(--s), var(--l));
   --accent: var(--h), 90%, 30%;
-  --darker-color: hsl(var(--h), 30%, 20%);
+  --darker-color: hsl(var(--h), 30%, 30%);
   --lighter-color: hsl(var(--h), 10%, 94%);
   --faded-color: hsl(var(--h), 20%, 60%);
   --input-color: hsl(var(--h), 20%, 60%);
@@ -41,6 +41,8 @@ body {
   --unfocus-color: hsl(var(--h), 40%, 30%);
   --dull-bright: hsl(var(--h), 10%, 90%);
   --border-color: hsl(var(--h), 40%, 90%);
+  --strong-color: #aaaaa;
+  --mark: hsl(var(--h), 40%, 90%);
   box-sizing: border-box;
   scrollbar-width: thin
 }
@@ -69,7 +71,8 @@ body {
   --bg-color: hsl(var(--h), 30%, 20%);
   --bg: hsl(calc(var(--h) + 5), 37%, 20%);
   --fg: var(--light);
-  --fg-opposite: var(--dark);
+  --mark: hsl(var(--h), 40%, 30%);
+  --fg-opposite: hsl(var(--h), 40%, 20%);
   --bright-dark: hsl(var(--h), 100%, 30%);
   --border-color: hsl(var(--h), 40%, 70%);
   --darker-color: hsl(var(--h), 40%, 70%);
@@ -80,6 +83,6 @@ body {
   --codeblock: hsl(var(--h), 20%, 5%);
   --strong-color: hsl(var(--h), 90%, 70%);
   --gray: var(--h), 90%, 80%;
-  --dull-bright: hsl(var(--h), 20%, 20%);
+  --dull-bright: hsl(var(--h), 60%, 30%);
   --main-bg: hsl(var(--h), 20%, 10%)
 }

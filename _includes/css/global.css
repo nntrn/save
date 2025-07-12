@@ -10,7 +10,7 @@ a:hover{text-decoration:none;background:var(--dull-bright);color:var(--darker-co
 a{text-decoration:underline;box-shadow:-2px 0 transparent,2px 0 transparent;text-decoration-color:var(--icon-color);text-decoration-thickness:2px;color:var(--link-color);text-decoration-style:dotted}
 blockquote{--accent-color:hsla(var(--gray), .9);color:hsla(var(--gray),.8);break-inside:avoid-column;margin-left:0;border-left:4px solid #eee;padding:0 1rem}
 blockquote p{margin-top:0;margin-bottom:0;padding:.25rem 0}
-em{color:hsla(var(--accent),.8)}
+em{color:var(--hsl)}
 em a,strong a:not(.dotted){text-decoration:none}
 h1,h2{margin:0}
 h1.site-title{color:var(--body-color)}
@@ -86,11 +86,12 @@ p:has(+.highlighter-rouge){margin-bottom:0}
 [data-issue]:after{content:" #" attr(data-issue);white-space:pre;color:var(--faded-color)}
 ::selection{background:hsl(var(--h),80%,90%)}
 .theme-group{--btn-size:2.1rem}
-.theme-group button{background:0 0;border:0;border-radius:2px;padding:4px;line-height:1;width:var(--btn-size);height:var(--btn-size);color:var(--bright-dark)}
-.theme-group button svg{fill:var(--bright-dark);padding:3px}
-.theme-group button:hover{--icon-color:var(--icon-color)}
+.theme-group button{background:0 0;border:0;border-radius:2px;padding:4px;line-height:1;width:var(--btn-size);height:var(--btn-size);color:var(--bright-dark);cursor:pointer}
+.theme-group button svg{fill:currentColor;padding:3px}
+.theme-group button:hover{color:var(--darker-color)}
 main img{max-width:80%;display:block;margin-left:auto;margin-right:auto}
 [data-theme=light] #btn-light-theme{display:none}
 [data-theme=dark] #btn-dark-theme{display:none}
 [data-theme=light] #hue-input{--input-color:#f2f2f2}
-[data-theme=dark] #hue-input{--input-color:var(--darker-color);color:var(--bg)}
+[data-theme=dark] #hue-input{--input-color:var(--darker-color);color:var(--dull-bright)}
+td.timestamp{text-align:right;min-width:25%;color: var(--faded-color);}
